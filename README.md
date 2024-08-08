@@ -1,7 +1,7 @@
 # 626 Hangout
 
 ## Tracked city sites:
---- will need to web scrape
+--- will need to web scrape:
 ### [Temple city](https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=&)
 ### [San Gabriel](https://www.sangabrielcity.com/calendar.aspx?CID=0&Keywords=&startDate=&enddate=&)
 ### [Rosemead](https://www.cityofrosemead.org/contacts/city_communication/city_calendar)

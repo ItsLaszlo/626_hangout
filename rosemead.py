@@ -15,3 +15,5 @@ for a_tag in a_tags:
         event_names.append(span_tag.text.strip())
 
 print(event_names)
+
+# Rosemead events
