@@ -8,6 +8,8 @@
 ### [Pasadena](https://www.cityofpasadena.net/events/month/?tribe_eventcategory%5B0%5D=257)
 ### [Pasadena Convention center](https://www.visitpasadena.com/convention-center/full-event-calendar/)
 ### [Alhambra](https://www.cityofalhambra.org/calendar.aspx?CID=14)
+### [Arcadia](https://www.arcadiaca.gov/calendar.php#recreation)
+
 Possible Libraries :
     requests 
     beautifulsoup4 
