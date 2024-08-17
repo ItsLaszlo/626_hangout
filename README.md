@@ -1,3 +1,4 @@
+[![Python CI](https://github.com/martham0/626_hangout/actions/workflows/python-app.yml/badge.svg)](https://github.com/martham0/626_hangout/actions/workflows/python-app.yml)
 # 626 Hangout
 
 <!-- ABOUT THE PROJECT -->
