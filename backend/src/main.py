@@ -3,9 +3,6 @@ from helpers.parse_html import parse_html
 from helpers.extract_events_sg import extract_events_sg
 import logging
 
-from bs4 import BeautifulSoup
-import logging
-
 
 def main():
     """Main function to fetch, parse, and extract event data."""
@@ -23,7 +20,7 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(filename='logs/project.log', level=logging.INFO)
+    logging.basicConfig(filename='../logs/project.log', level=logging.INFO)
     main()
 
 # San Gabriel events
