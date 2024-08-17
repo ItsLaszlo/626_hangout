@@ -1,4 +1,5 @@
-name: Python Backend CI
+# .github/workflows/python-ci.yml
+name: Python CI
 
 on: [push, pull_request]
 
@@ -8,22 +9,28 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Specify the Python version
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r backend/requirements.txt
 
-    - name: Build
-      run: |
-        echo "Building the project..."
-        # Add your build commands here
+#    - name: Run tests
+#      run: |
+#        pytest backend/src  # Adjust path as necessary
+
+    - name: Archive logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: logs
+        path: backend/logs/
 
     - name: Syntax check
       run: |
