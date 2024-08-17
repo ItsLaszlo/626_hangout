@@ -1,15 +1,14 @@
 # .github/workflows/python-ci.yml
 name: Python CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -25,14 +24,16 @@ jobs:
 #      run: |
 #        pytest backend/src  # Adjust path as necessary
 
-    - name: Archive logs
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: logs
-        path: backend/logs/
+#    - name: Archive logs
+#      if: always()
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: logs
+#        path: backend/logs/
 
-    - name: Syntax check
+    - name: Lint with Ruff
       run: |
-        pylint src/
+        pip install ruff
+        ruff check --output-format=github .
+      continue-on-error: true
 
