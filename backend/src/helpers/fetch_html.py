@@ -2,7 +2,7 @@ import requests
 import logging
 
 
-def fetch_html(url: str):
+def fetch_html(url):
     """Fetch HTML content from the given URL."""
     try:
         response = requests.get(url)
