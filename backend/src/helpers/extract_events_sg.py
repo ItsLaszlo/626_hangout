@@ -2,9 +2,9 @@ import logging
 import re
 from urllib.parse import urlparse
 
-#TODO: make this reusable for other city pages with similar format
+
 def extract_events_sg(soup, city, city_url):
-    """Extract and clean up event information from BeautifulSoup object for Temple City and San Gabriel"""
+    """Extract and clean up event information from BeautifulSoup object for Temple City, San Gabriel, and Alhambra"""
     event_div = soup.find('div', id=re.compile(r"^CID\d+"), class_="calendar")
 
     if not event_div:
