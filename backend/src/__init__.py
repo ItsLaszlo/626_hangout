@@ -10,6 +10,6 @@ def create_app():
     # CORS(app)
 
     # Register routes
-    app.register_blueprint(sgv_event_api_bp, url_prefix='/events')
+    app.register_blueprint(sgv_event_api_bp, url_prefix='/626_hangout')
 
     return app

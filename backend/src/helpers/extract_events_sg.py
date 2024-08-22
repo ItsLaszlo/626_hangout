@@ -13,9 +13,9 @@ def extract_events_sg(soup, city, city_url):
 
     li_events = event_div.find_all('li')
     events = []
-    #TODO:map for replaceable characters
     for event in li_events:
         # clean date
+        #TODO:map for replaceable characters
         date_string = event.find(class_='date').text.strip()
         cleaned_date = date_string.replace('\xa0', ' ').replace('\u2009', ' ')
 

@@ -10,12 +10,15 @@ from ..helpers.extract_events_pas import extract_events_pas
 # create blueprint for routes
 sgv_event_api_bp = Blueprint('sgv_event_api_bp',__name__)
 
-@sgv_event_api_bp.route("/")
+@sgv_event_api_bp.route("/", strict_slashes=False)
 def home():
     return "Welcome to 626 Hangout API!"
-@sgv_event_api_bp.route('/<city>', methods=['GET'])
-def get_city_events(city):
+
+@sgv_event_api_bp.route('/events', methods=['GET'],  strict_slashes=False)
+def get_city_events():
     """Scrape <city> site for events happening this month."""
+    city = request.args.get('city').replace(' ', '_').lower()
+
     city_urls = {
         'san_gabriel': 'https://www.sangabrielcity.com/calendar.aspx?CID=20',
         'temple': 'https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=&',
