@@ -50,3 +50,37 @@ This section should list any major frameworks that you built your project using.
 
 <!-- GETTING STARTED -->
 ## Getting Started
+  Navigate to backend directory
+  Create a virtual environment and activate it
+  ```python
+  python -m venv myenv
+  source myenv/bin/activate
+  ```
+  
+  Install requirements:
+  ```python
+  pip install -r requirements.txt
+  ```
+  
+  Run flask app
+  ```python
+  python3 src/main.py
+  ```
+
+
+### API:
+  `http://127.0.0.1:5000/events/<city>`<br>
+ 
+  **`<city>` options:**
+  - `san_gabriel`
+  - `temple`
+  - `alhambra`
+  - `pasadena`
+
+**CURL examples:**
+```commandline
+curl http://127.0.0.1:5000/events/temple
+curl http://127.0.0.1:5000/events/pasadena
+```
+
+
