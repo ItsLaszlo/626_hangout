@@ -6,9 +6,13 @@
 Compile a list of events happening in the 626 Area.
 ### Tracked city sites:
 - [X] [Temple city](https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=&)
+  - Pink: #c53469
 - [X] [San Gabriel](https://www.sangabrielcity.com/calendar.aspx?CID=0&Keywords=&startDate=&enddate=&)
+  - Orange: #e05000
 - [X] [Pasadena](https://www.cityofpasadena.net/events/list/?tribe_eventcategory%5B0%5D=257)
+  - Blue: #00275d
 - [X] [Alhambra](https://www.cityofalhambra.org/calendar.aspx?CID=14)
+  - Brown: #92721b
 ### Stretch:
 - [ ] [Pasadena Convention center](https://www.visitpasadena.com/convention-center/full-event-calendar/)
 - [ ] [Rosemead](https://www.cityofrosemead.org/contacts/city_communication/city_calendar)
