@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:5001'; // Flask API URL
 
 export const fetchData = async (endpoint, params = {}) => {
-   const queryString = new URLSearchParams(params).toString();
+   const queryString = new URLSearchParams(params).toString(); // manipulate query parameters
    const api_url = `${API_URL}/${endpoint}?${queryString}`
 
    try {
