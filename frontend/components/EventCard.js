@@ -1,30 +1,70 @@
-// src/components/EventCard.js
-import { Card, CardContent, Typography, CardActions, Button, CardHeader } from '@mui/material';
 import { format } from 'date-fns'; //ToDo: Format dates
+import React from 'react';
+import { Card, CardContent, Typography, Button } from '@mui/material';
+
+// Mapping of cities to colors
+const cityColors = {
+  Pasadena: '#00275D',
+  Alhambra: '#92721B',
+  'San Gabriel': '#E05000',
+  'Temple City': '#C53469',
+};
 
 const EventCard = ({ event }) => {
+  const barColor = cityColors[event.city]
+
   return (
-    <Card variant="outlined" style={{ maxWidth: 345, margin: '20px' }}>
-      <CardHeader
-        title={event.title}
-        subheader={event.date}
+    <Card
+      variant="outlined"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '16px',
+        width: '100%',
+        padding: '16px',
+        boxSizing: 'border-box',
+        position: 'relative',
+        paddingLeft: '60px', // Add padding to make space for the bar
+      }}
+    >
+      {/* Left Colored Bar */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '40px',
+          height: '100%',
+          backgroundColor: barColor,
+        }}
       />
-      <CardContent>
-        <Typography variant="h6" component="h2">
-          City: {event.city}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          {event.description}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          Location: {event.location}
+
+      {/* Date Section */}
+      <CardContent style={{ flex: '0 0 150px' }}>
+        <Typography variant="body1" component="p" style={{ fontWeight: 'bold' }}>
+          {event.date}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small" color="primary" href={event.url} target="_blank" rel="noopener noreferrer">
-          Learn More
+
+      {/* Event Details Section */}
+      <CardContent style={{ flex: '1 1 auto', padding: '16px' }}>
+        <Typography variant="h6" component="h2">
+          {event.title}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {event.description}
+        </Typography>
+        <Typography variant="body2" component="p">
+          Location: {event.location || "N/A; Click on [More Info] -->"}
+        </Typography>
+      </CardContent>
+
+      {/* External Link Section */}
+      <CardContent style={{ flex: '0 0 150px', textAlign: 'right' }}>
+        <Button variant="contained" color="primary" href={event.url} target="_blank">
+          More Info
         </Button>
-      </CardActions>
+      </CardContent>
     </Card>
   );
 };

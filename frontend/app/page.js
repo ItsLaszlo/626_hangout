@@ -11,7 +11,21 @@ export default function HomePage() {
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}
     <CustomAppBar />
-    <Grid container direction="column" alignItems="center" justifyContent="center" style={{ paddingTop: '20px' }}>
+     <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{
+          paddingTop: '20px',
+          paddingLeft: '20px', // Add left padding to create buffer
+          paddingRight: '20px', // Add right padding to create buffer
+          paddingBottom: '20px' // Add bottom padding to create buffer
+        }}
+      >
+      <Grid item>
+                 <Typography variant="h4">Events</Typography>
+            </Grid>
       {error && (
         <Grid item>
             <Typography variant="body1" color="error">Error: {error}</Typography>
@@ -19,12 +33,10 @@ export default function HomePage() {
       )}
       {!error && data ? (
         <>
-            <Grid item>
-                 <Typography variant="h4">Events</Typography>
-            </Grid>
+
             <Grid container spacing={2} justifyContent="center">
               {data.map((event, index) => (
-                <Grid item key={index}>
+                <Grid item key={index} style={{ width: '100%' }}>
                   <EventCard event={event} />
                 </Grid>
               ))}
