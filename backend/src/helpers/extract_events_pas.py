@@ -25,7 +25,7 @@ def extract_events_pas(soup):
             'description':event.find('p').text.strip(),
             'location': location,
             'city': 'Pasadena',
-            'url': event.find('a').get('href')
+            'url': event.find('h3').find('a').get('href')
         }
         events.append(event_info)
 
