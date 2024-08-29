@@ -1,11 +1,8 @@
 'use client';
 import { useFetchData } from '../hooks/useFetchData';
 import CustomAppBar from '../components/AppBar';
-import {
-    Button,
-    Typography,
-    Grid,
-} from '@mui/material';
+import EventCard from '../components/EventCard';
+import {Typography, Grid} from '@mui/material';
 
 
 export default function HomePage() {
@@ -15,15 +12,30 @@ export default function HomePage() {
   <>  {/* ToDO: Look into </React.Fragment>*/}
     <CustomAppBar />
     <Grid container direction="column" alignItems="center" justifyContent="center" style={{ paddingTop: '20px' }}>
-      <Grid item>
-        {error ? (
-          <Typography variant="body1" color="error">Error: {error}</Typography>
-        ) : data ? (
-          <Typography variant="body1">Data: {JSON.stringify(data)}</Typography>
+      {error && (
+        <Grid item>
+            <Typography variant="body1" color="error">Error: {error}</Typography>
+        </Grid>
+      )}
+      {!error && data ? (
+        <>
+            <Grid item>
+                 <Typography variant="h4">Events</Typography>
+            </Grid>
+            <Grid container spacing={2} justifyContent="center">
+              {data.map((event, index) => (
+                <Grid item key={index}>
+                  <EventCard event={event} />
+                </Grid>
+              ))}
+            </Grid>
+          </>
         ) : (
-          <Typography variant="body1">Loading...</Typography>
-        )}
-      </Grid>
+          <Grid item>
+            <Typography variant="body1">Loading...</Typography>
+          </Grid>
+
+      )}
     </Grid>
     </>
   );
