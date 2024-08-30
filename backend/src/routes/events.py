@@ -21,8 +21,8 @@ def get_city_events():
     city = request.args.get('city') #retrieve query parameter ToDO: create an if there is a query  parameter!!
     #ToDO: find extension to see git history
     city_urls = {
-        'san_gabriel': 'https://www.sangabrielcity.com/calendar.aspx?CID=20',
-        'temple': 'https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=09/30/2024', #ToDo: May have to specify enddate query
+        'san_gabriel': 'https://www.sangabrielcity.com/calendar.aspx?month=9&year=2024&CID=20',
+        'temple': 'https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=09/01/2024&enddate=10/30/2024', #ToDo: **** Have to specify start and enddate query
         'alhambra': 'https://www.cityofalhambra.org/calendar.aspx?CID=14',
         'pasadena': 'https://www.cityofpasadena.net/events/list/?tribe_eventcategory%5B0%5D=257'
     }

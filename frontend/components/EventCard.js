@@ -6,8 +6,8 @@ import { Card, CardContent, Typography, Button } from '@mui/material';
 const cityColors = { // ToDo: make key type consistent
   Pasadena: '#00275D',
   Alhambra: '#92721B',
-  'San Gabriel': '#E05000',
-  'Temple City': '#C53469',
+  San_Gabriel: '#E05000',
+  Temple: '#C53469',
 };
 
 const EventCard = ({ event }) => {
