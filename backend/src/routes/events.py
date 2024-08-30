@@ -14,6 +14,7 @@ sgv_event_api_bp = Blueprint('sgv_event_api_bp',__name__)
 def home():
     return "Welcome to 626 Hangout API!"
 
+# ToDo: Make a 404 route
 @sgv_event_api_bp.route('/events', methods=['GET'],  strict_slashes=False)
 def get_city_events():
     """Scrape <city> site for events happening this month."""
@@ -27,7 +28,7 @@ def get_city_events():
     }
 
     all_events = []
-    if city is None: # If city is empty get all events
+    if city == 'all': # If city is empty get all events
         for city in city_urls:
             url = city_urls[city]
             html_text = fetch_html_content(url)
