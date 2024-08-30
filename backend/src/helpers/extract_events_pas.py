@@ -2,7 +2,7 @@ import logging
 # from urllib.parse import urlparse
 
 
-def extract_events_pas(soup):
+def extract_events_pas(soup) -> list:
     """Extract and clean up event information from BeautifulSoup object for Pasadena"""
     events_div = soup.find('div', class_="tribe-events-calendar-list")
 
@@ -18,14 +18,15 @@ def extract_events_pas(soup):
         date_string = event.find(class_='tribe-event-date-start').text.strip()
         cleaned_date = date_string.replace('\xa0', ' ').replace('\u2009', ' ')
         location = event.find(class_='tribe-events-calendar-list__event-venue-address').text.strip() if event.find(class_='tribe-events-calendar-list__event-venue-address') else ''
+        event_title = event.find('h3')
 
         event_info = {
-            'title': event.find('h3').text.strip(),
+            'title': event_title.text.strip(),
             'date': cleaned_date,
             'description':event.find('p').text.strip(),
             'location': location,
             'city': 'Pasadena',
-            'url': event.find('h3').find('a').get('href')
+            'url': event_title.find('a').get('href')
         }
         events.append(event_info)
 
