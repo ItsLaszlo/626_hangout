@@ -2,8 +2,8 @@
 import { useFetchData } from '../hooks/useFetchData';
 import CustomAppBar from '../components/AppBar';
 import EventCard from '../components/EventCard';
+//import CityLegend from '../components/CityLegend';
 import {Typography, Grid} from '@mui/material';
-
 
 export default function HomePage() {
     const { data, error } = useFetchData({ city: 'pasadena' });
@@ -11,6 +11,7 @@ export default function HomePage() {
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}
     <CustomAppBar />
+
      <Grid
         container
         direction="column"
@@ -24,8 +25,9 @@ export default function HomePage() {
         }}
       >
       <Grid item>
-                 <Typography variant="h4">Events</Typography>
+                 <Typography variant="h4">~Upcoming Events~</Typography>
             </Grid>
+      {/*  <CityLegend /> */}
       {error && (
         <Grid item>
             <Typography variant="body1" color="error">Error: {error}</Typography>
