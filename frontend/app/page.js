@@ -6,7 +6,7 @@ import EventCard from '../components/EventCard';
 import {Typography, Grid} from '@mui/material';
 
 export default function HomePage() {
-    const { data, error } = useFetchData({ city: 'pasadena' });
+    const { data, error } = useFetchData({ city: 'all' });
 
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}

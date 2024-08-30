@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 
 // Mapping of cities to colors
-const cityColors = {
+const cityColors = { // ToDo: make key type consistent
   Pasadena: '#00275D',
   Alhambra: '#92721B',
   'San Gabriel': '#E05000',
@@ -48,21 +48,26 @@ const EventCard = ({ event }) => {
 
       {/* Event Details Section */}
       <CardContent style={{ flex: '1 1 auto', padding: '16px' }}>
-        <Typography variant="h6" component="h2">
+        <Typography variant="h6" component="h2" style={{ fontWeight: 'bold' }}>
           {event.title}
         </Typography>
         <Typography variant="body2" component="p">
           {event.description}
         </Typography>
-        <Typography variant="body2" component="p">
-          Location: {event.location || "N/A; Click on [More Info] -->"}
+        <Typography variant="body2" style={{ fontWeight: 'bold' }} display="inline">
+          Location:
+        </Typography>
+        <Typography variant="body2" component="span" display="inline">
+          {event.location || "N/A; Click on [More Info] -->"}
         </Typography>
       </CardContent>
 
       {/* External Link Section */}
       <CardContent style={{ flex: '0 0 150px', textAlign: 'right' }}>
         <Button variant="contained" color="primary" href={event.url} target="_blank">
-          More Info
+         <Typography variant="button" style={{ fontWeight: 'bold' }}>
+            More Info
+         </Typography>
         </Button>
       </CardContent>
     </Card>

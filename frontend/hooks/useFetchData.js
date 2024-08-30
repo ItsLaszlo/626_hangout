@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchData } from '../utils/api'; // Adjust the path as needed
+import { fetchData } from '../utils/api';
 
 export function useFetchData(queryParams) {
   const [data, setData] = useState(null); // fetched data
@@ -8,8 +8,7 @@ export function useFetchData(queryParams) {
   useEffect(() => { // Hook for data fetching
     const getData = async () => { // fetch data from API
       try {
-        const params = { 'city': 'pasadena' }; // query parameters
-        const result = await fetchData('626_hangout/events', params); // Use query parameters
+        const result = await fetchData('626_hangout/events', queryParams); // Use query parameters
         setData(result);
       } catch (error) {
         console.error('Error fetching data:', error); //ToDo: Find where this is logging to
