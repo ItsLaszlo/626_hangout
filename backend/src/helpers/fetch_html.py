@@ -2,7 +2,7 @@ import requests
 import logging
 
 
-def fetch_html(url):
+def fetch_html_content(url):
     """Fetch HTML content from the given URL."""
     try:
         # Identify a User-Agent
