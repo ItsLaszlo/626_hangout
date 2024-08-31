@@ -10,6 +10,7 @@ export default function HomePage() {
 
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}
+  <div style={{ backgroundColor: '#C9C5C5', height: '100vh' }}>  // ToDO: figure out color scheme. Too bright rn
     <CustomAppBar />
 
      <Grid
@@ -46,11 +47,12 @@ export default function HomePage() {
           </>
         ) : (
           <Grid item>
-            <Typography variant="body1">Loading...</Typography>
+            <Typography variant="body1">Loading...</Typography> // ToDo: Loading ends after failed
           </Grid>
 
       )}
     </Grid>
+    </div>
     </>
   );
 }

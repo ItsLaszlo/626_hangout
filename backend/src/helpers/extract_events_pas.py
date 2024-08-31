@@ -1,6 +1,6 @@
 import logging
 # from urllib.parse import urlparse
-
+from date_formatter import date_formatter
 
 def extract_events_pas(soup) -> list:
     """Extract and clean up event information from BeautifulSoup object for Pasadena"""
@@ -16,13 +16,13 @@ def extract_events_pas(soup) -> list:
     for event in li_events:
         # clean date
         date_string = event.find(class_='tribe-event-date-start').text.strip()
-        cleaned_date = date_string.replace('\xa0', ' ').replace('\u2009', ' ')
+        frmtd_date = date_formatter(date_string)
         location = event.find(class_='tribe-events-calendar-list__event-venue-address').text.strip() if event.find(class_='tribe-events-calendar-list__event-venue-address') else ''
         event_title = event.find('h3')
 
         event_info = {
             'title': event_title.text.strip(),
-            'date': cleaned_date,
+            'date': frmtd_date,
             'description':event.find('p').text.strip(),
             'location': location,
             'city': 'Pasadena',
