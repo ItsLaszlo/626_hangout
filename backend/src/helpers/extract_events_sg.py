@@ -1,8 +1,7 @@
 import logging
 import re
-from urllib.parse import urlparse
-
-
+from ..helpers.date_formatter import date_formatter
+from ..helpers.parse_url import parse_url
 def extract_events_sg(soup, city, city_url) -> list:
     """Extract and clean up event information from BeautifulSoup object for Temple City, San Gabriel, and Alhambra"""
     event_div = soup.find('div', id=re.compile(r"^CID\d+"), class_="calendar")
@@ -15,19 +14,14 @@ def extract_events_sg(soup, city, city_url) -> list:
     events = []
     for event in li_events:
         # clean date
-        #TODO:map for replaceable characters
         date_string = event.find(class_='date').text.strip()
-        cleaned_date = date_string.replace('\xa0', ' ').replace('\u2009', ' ')
-
+        event_date = date_formatter(date_string)
         location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
-
-        # Handle date parsing if needed
-        # Format date and time extraction based on actual data format
-        # Example: start_time = datetime.strptime(cleaned_date, "%B %d, %Y, %I:%M %p")
+        event_title = event.find('span').text.strip()
 
         event_info = {
-            'title': event.find('span').text.strip(),
-            'date': cleaned_date,
+            'title': event_title,
+            'date': event_date,
             'description':event.find('p').text.strip(),
             'location': location,
             'city': city,
@@ -36,9 +30,3 @@ def extract_events_sg(soup, city, city_url) -> list:
         events.append(event_info)
 
     return events
-
-def parse_url(url):
-    parsed_url = urlparse(url)
-    # Extract the domain
-    domain = f"{parsed_url.scheme}://{parsed_url.netloc}"
-    return domain

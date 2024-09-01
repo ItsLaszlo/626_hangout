@@ -1,7 +1,7 @@
 # Dependency directories
 node_modules/
 venv*/
-626_hangout/frontend/backend/logs/
+logs/
 
 
 # Build output
@@ -38,5 +38,7 @@ yarn-error.log*
 package-lock.json
 .next/
 
+#configs
+url_config.py
 
 

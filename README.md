@@ -5,13 +5,13 @@
 ## About The Project
 Compile a list of events happening in the 626 Area.
 ### Tracked city sites:
-- [X] [Temple city](https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=&)
+- [X] [Temple city](https://www.ci.temple-city.ca.us/)
   - Pink: #c53469
-- [X] [San Gabriel](https://www.sangabrielcity.com/calendar.aspx?CID=0&Keywords=&startDate=&enddate=&)
+- [X] [San Gabriel](https://www.sangabrielcity.com/)
   - Orange: #e05000
-- [X] [Pasadena](https://www.cityofpasadena.net/events/list/?tribe_eventcategory%5B0%5D=257)
+- [X] [Pasadena](https://www.cityofpasadena.net)
   - Blue: #00275d
-- [X] [Alhambra](https://www.cityofalhambra.org/calendar.aspx?CID=14)
+- [X] [Alhambra](https://www.cityofalhambra.org)
   - Brown: #92721b
 ### Stretch:
 - [ ] [Pasadena Convention center](https://www.visitpasadena.com/convention-center/full-event-calendar/)
@@ -68,7 +68,8 @@ This section should list any major frameworks that you built your project using.
   
   Run flask app
   ```python
-  python3 src/main.py
+  python3 -m src.main 
+
   ```
 
 
@@ -84,7 +85,7 @@ This section should list any major frameworks that you built your project using.
 **CURL examples:**
 ```commandline
 curl http://127.0.0.1:5001/626_hangout/events?city=pasadena
-curl http://127.0.0.1:5001/626_hangout/events?city=temple
+curl http://127.0.0.1:5001/626_hangout/events?city=all
 ```
 
 

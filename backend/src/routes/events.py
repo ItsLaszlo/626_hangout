@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify, request
-from collections import defaultdict
-# import logging
-import datetime
 from ..helpers.fetch_html import fetch_html_content
 from ..helpers.parse_html import parse_html_content
 from ..helpers.extract_events_sg import extract_events_sg
 from ..helpers.extract_events_pas import extract_events_pas
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from url_config import get_city_urls
 
 # create blueprint for routes
 sgv_event_api_bp = Blueprint('sgv_event_api_bp',__name__)
@@ -18,16 +19,9 @@ def home():
 @sgv_event_api_bp.route('/events', methods=['GET'],  strict_slashes=False)
 def get_city_events():
     """Scrape <city> site for events happening this month."""
-    today = datetime.date.today()
-    future_date = today + datetime.timedelta(days=30)
-    city = request.args.get('city') #retrieve query parameter ToDO: create an if there is a query  parameter!!
-    #ToDO: find extension to see git history
-    city_urls = { #ToDo: import urls from a config
-        'san_gabriel': f'https://www.sangabrielcity.com/calendar.aspx?CID=20&Keywords=&startDate={today.month}/{today.day}/{today.year}&enddate={future_date.month}/{future_date.day}/{future_date.year}',
-        'temple': f'https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate={today.month}/{today.day}/{today.year}&enddate={future_date.month}/{future_date.day}/{future_date.year}', #ToDo: **** Have to specify start and enddate query
-        'alhambra': f'https://www.cityofalhambra.org/calendar.aspx?Keywords=&startDate={today.month}/{today.day}/{today.year}&enddate={future_date.month}/{future_date.day}/{future_date.year}&CID=14&showPastEvents=false',
-        'pasadena': 'https://www.cityofpasadena.net/events/list/?tribe_eventcategory%5B0%5D=257'
-    }
+    city = request.args.get('city') #retrieve query parameter
+    city_urls = get_city_urls()
+
     all_events = []
     if city == 'all': # If city is empty get all events
         for city in city_urls:
