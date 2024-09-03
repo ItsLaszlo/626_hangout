@@ -20,14 +20,14 @@ Compile a list of events happening in the 626 Area.
 <!-- ROADMAP -->
 ## Roadmap
 ### MVP
-- [ ] **Gather all events happening in the current month**
-- [ ] **Gather all event data**
+- [X] **Gather all events happening in the current month**
+- [X] **Gather all event data**
   - Date
   - Event Name
   - Location
   - Event Link
   - Description
-- [ ] **Have a UI to see all events**
+- [X] **Have a UI to see all events**
   - Provide a user interface to view the list of events.
 
 ### MVP+
