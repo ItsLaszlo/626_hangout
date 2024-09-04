@@ -39,6 +39,6 @@ package-lock.json
 .next/
 
 #configs
-url_config.py
+formatted_url_config.py
 
 

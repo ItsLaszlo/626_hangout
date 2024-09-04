@@ -22,7 +22,7 @@ def date_formatter (date_str:str):
         match = re.match(pattern, normalized_date_str)
         if match:
             #
-            groups = match.groups()
+            groups = match.groups() # ToDO: look for a dateformatter func/library
 
             if len(groups) == 3 and ":" in groups[1]: # Single day with time range
                 day_and_year = datetime.strptime(groups[0],"%B %d, %Y") # date obj w/  month, date, and year
