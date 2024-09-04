@@ -3,7 +3,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Compile a list of events happening in the 626 Area.
+Local event aggregator for cities in the 626 (San Gabriel Valley).
+
 ### Tracked city sites:
 - [X] [Temple city](https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=&enddate=&)
   - Pink: #c53469
