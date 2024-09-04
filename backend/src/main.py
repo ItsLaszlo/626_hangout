@@ -19,6 +19,6 @@ logging.basicConfig(filename=log_file, level=logging.ERROR) # ToDo:Look into bes
 app = create_app()
 
 
-if __name__ == "__main__":
-    print("Starting 626 hangout app on http://127.0.0.1:5001/626_hangout/...") # ToDo: change to localhost or delete
+if __name__ == '__main__':
+    print('Starting 626 hangout app on http://localhost:5001/626_hangout/...') # ToDo: change to localhost or delete
     app.run(debug=True, port=5001) # ToDo: use config for port

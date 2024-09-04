@@ -11,8 +11,8 @@ def extract_json_city_urls() -> dict:
             urls = json.load(file)
         return urls
     except FileNotFoundError:
-        logging.error(f"city_urls.json not found at {json_path}")
+        logging.error(f'city_urls.json not found at {json_path}')
         return {}
     except json.JSONDecodeError:
-        logging.error(f"Error decoding JSON from {json_path}")
+        logging.error(f'Error decoding JSON from {json_path}')
         return {}

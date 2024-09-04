@@ -1,11 +1,9 @@
 import logging
 import re
 from backend.src.helpers.date_formatter import date_formatter
-from backend.config.formatted_url_config import extract_json_city_urls
 
-# ToDO: Create extract event for every city
 
-def extract_events_san_gabriel(parsed_html, city:str, home_url) -> list:
+def extract_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) -> list:
     """Extract and clean up event information from BeautifulSoup object for Temple City, San Gabriel, and Alhambra"""
 
     event_div = parsed_html.find('div', id=re.compile(r"^CID\d+"), class_="calendar")
@@ -34,13 +32,13 @@ def extract_events_san_gabriel(parsed_html, city:str, home_url) -> list:
 
     return events
 
-def extract_events_temple(parsed_html, home_url) -> list: #ToDO: fix parsed_html type it is BeautifulSoup Obj
+def extract_events_temple(parsed_html:'BeautifulSoup', home_url:str) -> list: #ToDO: fix parsed_html type it is BeautifulSoup Obj
     return extract_events_san_gabriel(parsed_html, 'temple', home_url)
 
-def extract_events_alhambra(parsed_html, home_url) -> list:
+def extract_events_alhambra(parsed_html: 'BeautifulSoup', home_url:str) -> list:
     return extract_events_san_gabriel(parsed_html, 'alhambra', home_url )
 
-def extract_events_pasadena(parsed_html) -> list:
+def extract_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
     """Extract and clean up event information from BeautifulSoup object for Pasadena"""
     events_div = parsed_html.find('div', class_="tribe-events-calendar-list")
     if not events_div:

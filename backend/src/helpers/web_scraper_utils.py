@@ -14,8 +14,8 @@ def fetch_html_content(url:str) -> str:
 
         return response.text
     except requests.RequestException as e:
-        logging.error(f"Error fetching URL {url}: {e}")
-        return None
+        logging.error(f'Error fetching URL {url}: {e}')
+        return ''
 
 def parse_html_content(html_content:str)-> BeautifulSoup:
     """Parse HTML content using BeautifulSoup."""
@@ -24,5 +24,5 @@ def parse_html_content(html_content:str)-> BeautifulSoup:
 def parse_url(url:str) -> str:
     parsed_url = urlparse(url)
     # Extract the domain
-    domain = f"{parsed_url.scheme}://{parsed_url.netloc}"
+    domain = f'{parsed_url.scheme}://{parsed_url.netloc}'
     return domain

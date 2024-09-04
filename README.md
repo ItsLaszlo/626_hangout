@@ -68,7 +68,7 @@ This section should list any major frameworks that you built your project using.
   
   Run flask app
   ```python
-  python3 -m src.main 
+  python3 backend/src/main.py
 
   ```
 
@@ -84,8 +84,8 @@ This section should list any major frameworks that you built your project using.
 
 **CURL examples:**
 ```commandline
-curl http://127.0.0.1:5001/626_hangout/events?city=pasadena
-curl http://127.0.0.1:5001/626_hangout/events?city=all
+curl http://localhost:5001/626_hangout/events?city=pasadena
+curl http://localhost:5001/626_hangout/events?city=all
 ```
 
 
