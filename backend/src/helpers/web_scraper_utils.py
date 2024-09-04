@@ -1,8 +1,9 @@
 import requests
 import logging
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
-
-def fetch_html_content(url):
+def fetch_html_content(url:str) -> str:
     """Fetch HTML content from the given URL."""
     try:
         # Identify a User-Agent
@@ -15,3 +16,13 @@ def fetch_html_content(url):
     except requests.RequestException as e:
         logging.error(f"Error fetching URL {url}: {e}")
         return None
+
+def parse_html_content(html_content:str)-> BeautifulSoup:
+    """Parse HTML content using BeautifulSoup."""
+    return BeautifulSoup(html_content, 'lxml')
+
+def parse_url(url:str) -> str:
+    parsed_url = urlparse(url)
+    # Extract the domain
+    domain = f"{parsed_url.scheme}://{parsed_url.netloc}"
+    return domain
