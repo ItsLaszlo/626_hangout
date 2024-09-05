@@ -75,7 +75,7 @@ This section should list any major frameworks that you built your project using.
 
 
 ### API:
-  `http://127.0.0.1:5000/events?city=<city>`<br>
+  `http://localhost:5001/events?city=<city>`<br>
  
   **`<city>` options:**
   - `San_gabriel`
