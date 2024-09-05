@@ -3,13 +3,15 @@ import { useFetchData } from '../hooks/useFetchData';
 import CustomAppBar from '../components/AppBar';
 import EventCard from '../components/EventCard';
 //import CityLegend from '../components/CityLegend';
-import {Typography, Grid} from '@mui/material';
+import { Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
 export default function HomePage() {
     const { data, error } = useFetchData({ city: 'all' });
 
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}
+  <div style={{ backgroundColor: '#C9C5C5', height: '100vh' }}>  // ToDO: figure out color scheme. Too bright rn
     <CustomAppBar />
 
      <Grid
@@ -19,7 +21,7 @@ export default function HomePage() {
         justifyContent="center"
         style={{
           paddingTop: '20px',
-          paddingLeft: '20px', // Add left padding to create buffer
+          paddingLeft: '20px', // Add left padding to create buffers
           paddingRight: '20px', // Add right padding to create buffer
           paddingBottom: '20px' // Add bottom padding to create buffer
         }}
@@ -46,11 +48,12 @@ export default function HomePage() {
           </>
         ) : (
           <Grid item>
-            <Typography variant="body1">Loading...</Typography>
-          </Grid>
+            <Typography variant="body1">Loading...</Typography> // ToDo: Loading ends after failed
+          </Grid> 
 
       )}
     </Grid>
+    </div>
     </>
   );
 }

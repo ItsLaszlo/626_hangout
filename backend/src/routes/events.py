@@ -1,50 +1,68 @@
 from flask import Blueprint, jsonify, request
-from collections import defaultdict
-# import logging
-
-from ..helpers.fetch_html import fetch_html_content
-from ..helpers.parse_html import parse_html_content
-from ..helpers.extract_events_sg import extract_events_sg
-from ..helpers.extract_events_pas import extract_events_pas
+import backend.src.helpers.web_scraper_utils as web_scraper_utils
+from backend.src.helpers.extract_json_urls import extract_json_city_urls
+from backend.src.helpers.extract_events import extract_events_san_gabriel, extract_events_pasadena, extract_events_temple, extract_events_alhambra
+from backend.config.formatted_url_config import get_city_urls_formatted
 
 # create blueprint for routes
 sgv_event_api_bp = Blueprint('sgv_event_api_bp',__name__)
 
-@sgv_event_api_bp.route("/", strict_slashes=False)
-def home():
-    return "Welcome to 626 Hangout API!"
+@sgv_event_api_bp.route('/', strict_slashes=False)
+def home() -> tuple:
+    return jsonify({'message': 'Welcome to 626 Hangout API!'}), 200
 
-# ToDo: Make a 404 route
 @sgv_event_api_bp.route('/events', methods=['GET'],  strict_slashes=False)
-def get_city_events():
+def get_events() -> tuple:
     """Scrape <city> site for events happening this month."""
-    city = request.args.get('city') #retrieve query parameter ToDO: create an if there is a query  parameter!!
-    #ToDO: find extension to see git history
-    city_urls = {
-        'san_gabriel': 'https://www.sangabrielcity.com/calendar.aspx?month=9&year=2024&CID=20',
-        'temple': 'https://www.ci.temple-city.ca.us/calendar.aspx?CID=23&Keywords=&startDate=09/01/2024&enddate=10/30/2024', #ToDo: **** Have to specify start and enddate query
-        'alhambra': 'https://www.cityofalhambra.org/calendar.aspx?CID=14',
-        'pasadena': 'https://www.cityofpasadena.net/events/list/?tribe_eventcategory%5B0%5D=257'
-    }
+    city = request.args.get('city') #retrieve query parameter
+    city_urls = extract_json_city_urls() # open city_urls.json in read mode #ToDO: messy usage using in several different place but can be narrowed down to one place to use. Not sure if function is actually needed
 
-    all_events = []
-    if city == 'all': # If city is empty get all events
-        for city in city_urls:
-            url = city_urls[city]
-            html_text = fetch_html_content(url)
-            html_soup = parse_html_content(html_text)
-            if city == 'pasadena':
-                all_events.extend(extract_events_pas(html_soup)) # ToDo:  optimize extending lists O(all_city_events)+O(City_specific_events)
-            else:
-                all_events.extend(extract_events_sg(html_soup,city.title(),url))
+    if city in city_urls or city == 'all': # include all in city_urls
+        return jsonify(get_city_events(city,city_urls)), 200
     else:
-        url = city_urls[city]
-        html_text = fetch_html_content(url)
-        html_soup = parse_html_content(html_text)
-        if city == 'pasadena':
-            all_events = event_list = extract_events_pas(html_soup)
-        else:
-            all_events = event_list = extract_events_sg(html_soup, city.title(), url)
+        return jsonify({'error': f'[ {city} ] is not an available city to gather events from.'}), 404
 
 
-    return jsonify(all_events)
+
+
+def get_city_events(city_name:str,city_urls:dict)-> list:
+    """Scrape <city> site for events happening this month."""
+    def process_city(city_name_to_process: str) -> 'BeautifulSoup':
+        city_url = get_city_urls_formatted(city_name_to_process)
+        city_html_text = web_scraper_utils.fetch_html_content(city_url)
+        city_html_soup = web_scraper_utils.parse_html_content(city_html_text)
+        return city_html_soup
+
+    if city_name == 'pasadena':
+        parsed_html = process_city(city_name)
+        return extract_events_pasadena(parsed_html)
+    elif city_name == 'san_gabriel':
+        parsed_html = process_city(city_name)
+        return extract_events_san_gabriel(parsed_html,'San Gabriel',city_urls[city_name])
+    elif city_name == 'alhambra':
+        parsed_html = process_city(city_name)
+        return extract_events_alhambra(parsed_html, city_urls[city_name])
+    elif city_name == 'temple':
+        parsed_html = process_city(city_name)
+        return extract_events_alhambra(parsed_html, city_urls[city_name])
+    else: #Todo: specify all 
+        all_events = []
+        extraction_functions = {
+            'pasadena': extract_events_pasadena,
+            'san_gabriel': extract_events_san_gabriel,
+            'alhambra': extract_events_alhambra,
+            'temple': extract_events_temple
+        }
+        for city in city_urls:
+            parsed_html = process_city(city)
+            if city in extraction_functions:
+                extraction_func = extraction_functions[city]
+                if city == 'pasadena':
+                    events = extraction_func(parsed_html)
+                elif city == 'san_gabriel':
+                    events = extraction_func(parsed_html, city, city_urls[city])
+                else:  # alhambra and temple
+                    events = extraction_func(parsed_html, city_urls[city])
+                all_events.extend(events) # ToDo:  optimize
+
+    return all_events
