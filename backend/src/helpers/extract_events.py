@@ -33,10 +33,10 @@ def extract_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url)
     return events
 
 def extract_events_temple(parsed_html:'BeautifulSoup', home_url:str) -> list: #ToDO: fix parsed_html type it is BeautifulSoup Obj
-    return extract_events_san_gabriel(parsed_html, 'temple', home_url)
+    return extract_events_san_gabriel(parsed_html, 'Temple', home_url)
 
 def extract_events_alhambra(parsed_html: 'BeautifulSoup', home_url:str) -> list:
-    return extract_events_san_gabriel(parsed_html, 'alhambra', home_url )
+    return extract_events_san_gabriel(parsed_html, 'Alhambra', home_url )
 
 def extract_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
     """Extract and clean up event information from BeautifulSoup object for Pasadena"""

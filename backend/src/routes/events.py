@@ -16,8 +16,8 @@ def get_events() -> tuple:
     """Scrape <city> site for events happening this month."""
     city = request.args.get('city') #retrieve query parameter
     city_urls = extract_json_city_urls() # open city_urls.json in read mode #ToDO: messy usage using in several different place but can be narrowed down to one place to use. Not sure if function is actually needed
-    print('city urls', city_urls)
-    if city in city_urls or city == 'all':
+
+    if city in city_urls or city == 'all': # include all in city_urls
         return jsonify(get_city_events(city,city_urls)), 200
     else:
         return jsonify({'error': f'[ {city} ] is not an available city to gather events from.'}), 404
@@ -38,14 +38,14 @@ def get_city_events(city_name:str,city_urls:dict)-> list:
         return extract_events_pasadena(parsed_html)
     elif city_name == 'san_gabriel':
         parsed_html = process_city(city_name)
-        return extract_events_san_gabriel(parsed_html,city_name,city_urls[city_name])
+        return extract_events_san_gabriel(parsed_html,'San Gabriel',city_urls[city_name])
     elif city_name == 'alhambra':
         parsed_html = process_city(city_name)
         return extract_events_alhambra(parsed_html, city_urls[city_name])
     elif city_name == 'temple':
         parsed_html = process_city(city_name)
         return extract_events_alhambra(parsed_html, city_urls[city_name])
-    else:
+    else: #Todo: specify all 
         all_events = []
         extraction_functions = {
             'pasadena': extract_events_pasadena,
