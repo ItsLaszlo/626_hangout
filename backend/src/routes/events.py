@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from backend.src.helpers.extract_json_urls import extract_json_city_urls
-from backend.src.helpers.city_events import check_city_events_file_exists, write_city_events, load_city_events
+from backend.src.helpers.city_events_storage import check_city_events_file_exists, write_city_events, load_city_events
 
 # create blueprint for routes
 sgv_event_api_bp = Blueprint('sgv_event_api_bp',__name__)
@@ -17,7 +17,7 @@ def read_events() -> tuple:
     if city_events_file_present:
         return jsonify(load_city_events(file_path)), 200
     else:
-        return jsonify(f'No events have been scraped for [{city_query_param}]'),400
+        return jsonify(f'No events have been scraped for [{city_query_param}] today'),400
 
 @sgv_event_api_bp.route('/scrape_events', methods=['POST'],  strict_slashes=False) #TOdo: not sure this is a get
 def scrape_events() -> tuple:
