@@ -4,6 +4,7 @@ from datetime import datetime
 from backend.src.helpers.city_event_scrapers import scrape_city_events
 from backend.src.helpers.date_formatter import datetime_serializer
 
+
 def write_city_events(file_path:str,city_query_param:str):
     all_city_events = scrape_city_events(city_query_param)
     dir_name = 'data'
@@ -12,6 +13,7 @@ def write_city_events(file_path:str,city_query_param:str):
     with open(file_path, 'w') as f:
         json.dump(all_city_events, f,default=datetime_serializer, indent=2)
     return file_path
+
 
 def load_city_events(file_path:str) -> list:
     with open(file_path, 'r') as file:

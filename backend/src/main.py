@@ -5,7 +5,7 @@ import logging
 # Add the project root directory to Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_root)
-from backend.src import create_app # ToDO: look into importing create_app why no file specified?
+from backend.src import create_app
 
 
 # Check logs directory exists
