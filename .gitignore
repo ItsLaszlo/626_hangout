@@ -17,7 +17,6 @@ Thumbs.db
 *.tmp
 *.swp
 *.swo
-.DS_Store
 
 # Environment variables
 .env
@@ -30,7 +29,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # IDE and editor settings
-.idea/
 *.sublime-project
 *.sublime-workspace
 

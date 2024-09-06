@@ -70,7 +70,6 @@ This section should list any major frameworks that you built your project using.
   Run flask app
   ```python
   python3 backend/src/main.py
-
   ```
 
 
@@ -89,7 +88,6 @@ curl http://localhost:5001/626_hangout/events?city=pasadena
 curl -X POST http://localhost:5001/626_hangout/scrape_events \
      -H "Content-Type: application/json" \
      -d '{"city": "all"}'
-
 ```
 
 
