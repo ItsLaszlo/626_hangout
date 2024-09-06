@@ -90,7 +90,7 @@ def scrape_city_events(city_name:str)-> list:
         return scrape_events_alhambra(parsed_html, city_urls[city_name])
     elif city_name == 'temple':
         parsed_html = process_city(city_name)
-        return scrape_events_alhambra(parsed_html, city_urls[city_name])
+        return scrape_events_temple(parsed_html, city_urls[city_name])
     elif city_name == 'all': #Todo: specify all
 
         all_events = []

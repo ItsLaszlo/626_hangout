@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import datetime
-from backend.src.helpers.scrape_city_events import scrape_city_events
+from backend.src.helpers.city_event_scrapers import scrape_city_events
 from backend.src.helpers.date_formatter import datetime_serializer
 
 def write_city_events(file_path:str,city_query_param:str):
