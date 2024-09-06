@@ -2,6 +2,10 @@ from datetime import datetime
 import re
 import unicodedata
 
+def datetime_serializer(obj):
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
 def date_formatter (date_str:str) -> tuple:
     patterns = [
         # 'September 11, 2024, 6:30 AM - 8:30 AM'
