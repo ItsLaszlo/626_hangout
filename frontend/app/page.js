@@ -4,7 +4,7 @@ import CustomAppBar from '../components/AppBar';
 import EventCard from '../components/EventCard';
 //import CityLegend from '../components/CityLegend';
 import { Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Unstable_Grid2'; //ToDO: implement Gridv2
 
 export default function HomePage() {
     const { data, error } = useFetchData({ city: 'all' });

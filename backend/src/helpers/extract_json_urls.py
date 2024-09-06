@@ -2,7 +2,7 @@ import json
 import os
 import logging
 
-def extract_json_city_urls() -> dict:
+def extract_json_city_urls() -> dict: #Todo: make it a more usable variable
     # Get the path to the project root
     json_path = os.path.join('backend', 'config', 'city_urls.json')
     print('json_path:', json_path)
