@@ -85,8 +85,11 @@ This section should list any major frameworks that you built your project using.
 
 **CURL examples:**
 ```commandline
-curl http://localhost:5001/626_hangout/events?city=pasadena
-curl http://localhost:5001/626_hangout/events?city=all
+curl http://localhost:5001/626_hangout/events?city=pasadena 
+curl -X POST http://localhost:5001/626_hangout/scrape_events \
+     -H "Content-Type: application/json" \
+     -d '{"city": "all"}'
+
 ```
 
 
