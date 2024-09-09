@@ -8,7 +8,7 @@ export function useFetchData(queryParams) {
   useEffect(() => { // Hook for data fetching
     const getData = async () => { // fetch data from API
       try {
-        const result = await fetchData('626_hangout/events', queryParams); // Use query parameters
+        const result = await fetchData('626_hangout/read_events', queryParams); // Use query parameters
         setData(result);
       } catch (error) {
         console.error('Error fetching data:', error); //ToDo: Find where this is logging to

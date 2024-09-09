@@ -3,11 +3,11 @@ import { useFetchData } from '../hooks/useFetchData';
 import CustomAppBar from '../components/AppBar';
 import EventCard from '../components/EventCard';
 //import CityLegend from '../components/CityLegend';
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2'; //ToDO: implement Gridv2
+import { Typography, Grid } from '@mui/material';
+// import Grid from '@mui/material/Unstable_Grid2'; //ToDO: implement Gridv2
 
 export default function HomePage() {
-    const { data, error } = useFetchData({ city: 'all' });
+    const { data, error } = useFetchData({ 'city': 'all' });
 
   return (
   <>  {/* ToDO: Look into </React.Fragment>*/}
