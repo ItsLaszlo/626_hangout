@@ -2,6 +2,7 @@ import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 // Mapping of cities to colors
 const cityColors = { // ToDo: make key type consistent
@@ -56,6 +57,7 @@ const getLocationDisplay = () => {
       sx={{
         display: 'flex',
         width: '100%',
+        height: '125px',
         bgcolor: '#2D3A3A',
         color: 'white',
         mb: 2,
@@ -63,70 +65,83 @@ const getLocationDisplay = () => {
       }}
     >
       {/* Event Details Section */}
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '70%'}}>
+        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mt:-2 }}>
           {event.title}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="caption">
           {event.description}
         </Typography>
       </CardContent>
 
-      {/* Date Section */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2, textAlign: 'right' }}>
-        <Typography variant="body2">{dateString}</Typography>
-        <Typography variant="body2">{timeString}</Typography>
-        <Typography variant="body2">{getLocationDisplay()}</Typography>
 
-  
-      </Box>
-
-      <Button 
-        variant="contained" 
-        href={event.url}
+      {/* Date and Location Section */}
+      <Box 
         sx={{ 
-          bgcolor: cityColor, 
-          color: 'white',
-          borderRadius: 0,
-          px: 2,
-          '&:hover': {
-            bgcolor: cityColor,
-          }
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'space-between', // Ensures space between top and bottom items
+          height: '100%', // Full height to align top and bottom content
+          p: .4, 
+          textAlign: 'right',
+          width:'20%'
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <ArrowUpwardIcon sx={{ mr: 1 }} />
-          <Typography variant="button">
-            MORE INFO
-          </Typography>
-          
-        </Box>
-      </Button>
+      <Box sx={{ textAlign: 'right' }}>
+        <Typography variant="body2">{dateString}</Typography>
+        <Typography variant="body2">{timeString}</Typography>
+      </Box>
+      <Box sx={{ textAlign: 'right', mt: 'auto' }}>
+        <Typography variant="body2">{getLocationDisplay()}</Typography>
+      </Box>
+      </Box>
       
+      {/* Divider */}
+      <Box
+        sx={{
+          width: '4px',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          bgcolor: '#E6DED1'
+        }}
+      />
+
+    <Box sx={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '150px', // Take full width of the parent container
+    p: 1, // Add padding around the button
+  }}>
+    <Button
+      variant="contained"
+      href={event.url}
+      sx={{
+        width: '100%',
+        height: '100%',
+        bgcolor: cityColor,
+        color: 'white',
+        borderRadius: 0,
+        border: '1px solid #E6DED1',
+        p: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '&:hover': {
+          bgcolor: cityColor,
+        }
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <OpenInNewIcon sx={{ fontSize: 60, alignItems:'center' }} />
+        <Typography variant="button" sx={{ textAlign: 'center', mt: 1 }}>
+          MORE INFO
+        </Typography>
+      </Box>
+    </Button>
+  </Box>
     </Card>
-
-    //   {/* <CardContent style={{ flex: '0 0 150px' }}>
-    //     <Typography variant="body1" component="p" style={{ fontWeight: 'bold' }}>
-    //       {event.date}
-    //     </Typography>
-    //     <Typography variant="body2" style={{ fontWeight: 'bold' }} display="inline">
-    //       Location:
-    //     </Typography>
-    //     <Typography variant="body2" component="span" display="inline">
-    //       {event.location || "N/A; Click on [More Info] -->"}
-    //     </Typography>
-    //   </CardContent> */}
-
-
-    //   {/* External Link Section */}
-    // //   <CardContent style={{ flex: '0 0 150px', textAlign: 'right' }}>
-    // //     <Button variant="contained" color="primary" href={event.url} target="_blank">
-    // //      <Typography variant="button" style={{ fontWeight: 'bold' }}>
-    // //         More Info
-    // //      </Typography>
-    // //     </Button>
-    // //   </CardContent>
-    // // </Card>
   );
 };
 
