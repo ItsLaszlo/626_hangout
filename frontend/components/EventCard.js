@@ -1,7 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 // Mapping of cities to colors
