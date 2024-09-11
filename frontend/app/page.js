@@ -3,6 +3,7 @@ import { useFetchData } from '../hooks/useFetchData';
 import CustomAppBar from '../components/AppBar';
 import EventCard from '../components/EventCard';
 import EventListContainer from '../components/EventList';
+import EventCarousel from '../components/EventCarousel';
 //import CityLegend from '../components/CityLegend';
 import { Typography, Grid } from '@mui/material';
 // import Grid from '@mui/material/Unstable_Grid2'; //ToDO: implement Gridv2
@@ -30,14 +31,18 @@ export default function HomePage() {
       >
       {!error && data ? (
         <>
-
+            <Grid container m='auto' justifyContent="center">
+            <EventCarousel events= {Object.values(data).slice(0, 4)}/>
+            </Grid>
+            
             <Grid container spacing={2} justifyContent="left">
                <EventListContainer events={data} />
             </Grid>
           </>
         ) : (
           <Grid item>
-            <Typography variant="body1">Loading...</Typography> // ToDo: Loading ends after failed
+            <Typography variant="body1">Loading...</Typography> 
+            {/* ToDo: Account for failing to Load */}
           </Grid> 
 
       )}

@@ -24,7 +24,7 @@ const EventCard = ({ event }) => {
     }
   };
 
-const getLocationDisplay = () => {
+const getLocationDisplay = () => { // TOdo: MAKE REUSABLE FUNCTION move to backend
   let cityName = event.city
    if (cityName === 'san_gabriel') {
       cityName = 'San Gabriel';
