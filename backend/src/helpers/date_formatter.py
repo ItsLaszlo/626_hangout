@@ -59,3 +59,6 @@ def date_formatter(date_str: str) -> tuple:  # ToDO: look for a dateformatter fu
             return start_date_time, end_date_time
 
     return ()
+
+#ToDo: make it more readable right now: 2024-09-11T06:30:002024-09-11T08:30:00 
+

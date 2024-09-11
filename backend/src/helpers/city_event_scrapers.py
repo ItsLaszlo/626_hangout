@@ -76,7 +76,7 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
     return events
 
 
-def scrape_city_events(city_name: str) -> list:
+def scrape_city_events(city_name: str) -> list: # ToDo: organize events by date earliest -latest
     """Scrape <city> site for events happening this month."""
     city_urls = extract_json()
 
