@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
-
 const EventCarousel = ({events}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
     }, 40000); // 40 seconds
-
+    
     return () => clearInterval(timer);
   }, []);
-
+  
   const handleDotClick = (index) => {
+    // Add some kind of fade to next event
     setCurrentIndex(index);
   };
 
@@ -70,8 +70,9 @@ const EventCarousel = ({events}) => {
         </Typography>
 
 <Box sx={{ mt: 'auto', display: 'flex', flexDirection: 'column', gap: 2 }}>
-  
-      <Box
+      
+  {/* ToDO: Pull this out to it's own component? */}
+      <Box 
       sx={{
         width: '100%',
         height: '4px',

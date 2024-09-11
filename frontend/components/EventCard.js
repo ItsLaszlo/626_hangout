@@ -60,15 +60,14 @@ const getLocationDisplay = () => { // TOdo: MAKE REUSABLE FUNCTION move to backe
         bgcolor: '#2D3A3A',
         color: 'white',
         mb: 2,
-        overflow: 'visible'
       }}
     >
       {/* Event Details Section */}
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '70%'}}>
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '60%'}}>
         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mt:-2 }}>
           {event.title}
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="caption" sx={{overflow: 'clip'}}>
           {event.description}
         </Typography>
       </CardContent>
@@ -83,7 +82,7 @@ const getLocationDisplay = () => { // TOdo: MAKE REUSABLE FUNCTION move to backe
           height: '100%', // Full height to align top and bottom content
           p: .4, 
           textAlign: 'right',
-          width:'20%'
+          width:'25%'
         }}
       >
       <Box sx={{ textAlign: 'right' }}>
