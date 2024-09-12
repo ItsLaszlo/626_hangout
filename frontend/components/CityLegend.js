@@ -21,7 +21,11 @@ const CityLegend = ({ selectedCities, onCityChange }) => {
     >
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         {Object.entries(cityColors).map(([city, color]) => (
-          <Grid item key={city} style={{ display: 'flex', alignItems: 'center' }}>
+          <Grid
+            item
+            key={city}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
             <Checkbox
               checked={selectedCities.includes(city)}
               onChange={() => onCityChange(city)}

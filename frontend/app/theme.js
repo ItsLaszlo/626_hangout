@@ -3,7 +3,7 @@
 import { createTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 const theme = createTheme({
-//define theme for materialUI components and returns a theme object that can be used with the ThemeProvider component.
+  //define theme for materialUI components and returns a theme object that can be used with the ThemeProvider component.
   palette: {
     primary: {
       main: '#C9C5C5',
