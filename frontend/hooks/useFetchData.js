@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchData } from '../utils/api';
 
 export function useFetchData(queryParams) {
-  const [data, setData] = useState(null); // fetched data
+  const [data, setData] = useState(null); // any info passed into  data
   const [error, setError] = useState(null); //error messages
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export function useFetchData(queryParams) {
 
   return { data, error };
 }
+
+

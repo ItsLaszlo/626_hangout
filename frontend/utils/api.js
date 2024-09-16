@@ -8,7 +8,7 @@ export const fetchData = async (endpoint, params = {}) => {
     const response = await fetch(api_url);
     if (!response.ok) {
       const errorText = await response.text(); // Read error text from response
-      throw new Error(`Error ${response.status}: ${errorText}`); // Include status and error text
+      throw new Error(`Error ${response.status}: ${errorText}`); // BREAK
     }
     return await response.json();
    } catch (error){
