@@ -60,13 +60,14 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
         event_date = date_formatter(date_string)
 
         location = event.find(class_='tribe-events-calendar-list__event-venue-address').text.strip() if event.find(class_='tribe-events-calendar-list__event-venue-address') else ''
+        clean_location = location.replace(', CA, United States', '').strip()
         event_title = event.find('h3')
 
         event_info = {
             'title': event_title.text.strip(),
             'date': event_date,
             'description': event.find('p').text.strip(),
-            'location': location,
+            'location': clean_location,
             'city': 'Pasadena',
             'url': event_title.find('a').get('href')
         }
@@ -75,7 +76,7 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
     return events
 
 
-def scrape_city_events(city_name: str) -> list:
+def scrape_city_events(city_name: str) -> list: # ToDo: organize events by date earliest -latest
     """Scrape <city> site for events happening this month."""
     city_urls = extract_json()
 

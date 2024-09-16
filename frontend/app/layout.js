@@ -1,11 +1,11 @@
 'use client';
 
-import { Inter } from "next/font/google"; //font
-import { ThemeProvider } from '@mui/material/styles';   //makes the theme available to all Material-UI components
-import CssBaseline from '@mui/material/CssBaseline';  // consistent baseline of styles across different browsers
-import theme from './theme';  // custom theme object from theme.js
+import { Inter } from 'next/font/google'; //font
+import { ThemeProvider } from '@mui/material/styles'; //makes the theme available to all Material-UI components
+import CssBaseline from '@mui/material/CssBaseline'; // consistent baseline of styles across different browsers
+import theme from './theme'; // custom theme object from theme.js
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   return (
@@ -19,4 +19,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
