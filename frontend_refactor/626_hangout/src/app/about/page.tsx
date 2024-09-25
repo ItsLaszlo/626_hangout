@@ -3,7 +3,10 @@ import styles from "../page.module.css";
 
 
 
-export default function Home() {
+export default async function Home() {
+  let data = await fetch('http://127.0.0.1:5001/626_hangout/read_events?city=all')
+  let events = await data.json()
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -12,10 +15,17 @@ export default function Home() {
            About 626 Hangout
         </h1>
         <ol>
-          <li>
-            I created this to compile all 626 events in one place
-          </li>
-          <li>Save and see your changes instantly.</li>
+          {events.length > 0 ? (
+          events.map((event, index) => (
+            <div key={index} className={styles.event}>
+              <h2>{event.title}</h2>
+              <p>{event.date}</p>
+              <p>{event.city}</p>
+              <p>{event.location}</p>
+              <p>{event.description}</p>
+              <a href={event.url} target="_blank" rel="noopener noreferrer">More info</a>
+            </div>
+          ))
         </ol>
 
         <div className={styles.ctas}>
