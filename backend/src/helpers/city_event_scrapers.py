@@ -5,8 +5,16 @@ from backend.config.formatted_url_config import get_city_urls_formatted
 import backend.src.helpers.web_scraper_utils as web_scraper_utils
 from backend.src.helpers.extract_json import extract_json
 
-
-def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city: str, home_url) -> list:
+def scrape_event_image(event_url):
+    event_html_text = web_scraper_utils.fetch_html_content(event_url)
+    event_html_soup = web_scraper_utils.parse_html_content(event_html_text)
+    # print('Event html',event_html_soup)
+    # if 
+    image = event_html_soup.find('img',class_='specificDetailImage')
+    image_url = image['src'] if image and 'src' in image.attrs else ''
+    return image_url
+    
+def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) -> list:
     """Extract and clean up event information from BeautifulSoup object for Temple City, San Gabriel, and Alhambra"""
 
     event_div = parsed_html.find('div', id=re.compile(r"^CID\d+"), class_="calendar")
@@ -22,14 +30,15 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city: str, home_url)
         event_date = date_formatter(date_string)
         location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
         event_title = event.find('span').text.strip()
-
+        event_url = f"{home_url}{event.find('a').get('href')}"
         event_info = {
             'title': event_title,
             'date': event_date,
             'description':event.find('p').text.strip(),
             'location': location,
             'city': city,
-            'url': f"{home_url}{event.find('a').get('href')}"
+            'url': event_url,
+            'image_url': scrape_event_image(event_url)
         }
         events.append(event_info)
 
@@ -69,7 +78,8 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
             'description': event.find('p').text.strip(),
             'location': clean_location,
             'city': 'Pasadena',
-            'url': event_title.find('a').get('href')
+            'url': event_title.find('a').get('href'),
+            'image_url': ''
         }
         events.append(event_info)
 
@@ -116,7 +126,7 @@ def scrape_city_events(city_name: str) -> list: # ToDo: organize events by date 
                 if city == 'pasadena':
                     events = extraction_func(parsed_html)
                 elif city == 'san_gabriel':
-                    events = extraction_func(parsed_html, city, city_urls[city])
+                    events = extraction_func(parsed_html, 'San Gabriel', city_urls[city])
                 else:  # alhambra and temple
                     events = extraction_func(parsed_html, city_urls[city])
                 all_events.extend(events)  # ToDo:  optimize
