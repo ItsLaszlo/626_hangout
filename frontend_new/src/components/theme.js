@@ -2,8 +2,8 @@ import { createTheme } from '@mui/material/styles';
 // import { blue, pink } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
-    background: {
-      default: '#24201F',
+    primary: {
+      main: '#24201F',
     },
     text: {
       primary: '#D4C6A1',
