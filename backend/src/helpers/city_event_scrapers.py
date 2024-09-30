@@ -5,13 +5,32 @@ from backend.config.formatted_url_config import get_city_urls_formatted
 import backend.src.helpers.web_scraper_utils as web_scraper_utils
 from backend.src.helpers.extract_json import extract_json
 
-def scrape_event_image(event_url):
+def scrape_event_page(event_url:str) ->'BeautifulSoup':
     event_html_text = web_scraper_utils.fetch_html_content(event_url)
-    event_html_soup = web_scraper_utils.parse_html_content(event_html_text)
-    # print('Event html',event_html_soup)
-    # if 
-    image = event_html_soup.find('img',class_='specificDetailImage')
-    image_url = image['src'] if image and 'src' in image.attrs else ''
+    event_page_html = web_scraper_utils.parse_html_content(event_html_text)
+    return event_page_html
+
+def scrape_event_page_image_san_gabriel(event_page_html: 'BeautifulSoup') -> str:
+    image_div = event_page_html.find('div', class_='specificDetailImage')
+# If the div is found, look for the img tag inside it
+    if image_div:
+        img_tag = image_div.find('img')
+        # If img tag is found, get the 'src' attribute
+        image_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else ''
+    else:
+        image_url = ''
+    return image_url
+    
+def scrape_event_page_image_pasadena(event_page_html: 'BeautifulSoup') -> str:
+    image_div = event_page_html.find('div', class_='tribe-events-event-image')
+# If the div is found, look for the img tag inside it
+    if image_div:
+        img_tag = image_div.find('img')
+        # If img tag is found, get the 'src' attribute
+        image_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else ''
+    else:
+        image_url = ''
+    print('pasadena iamge url', image_url)
     return image_url
     
 def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) -> list:
@@ -31,6 +50,7 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) 
         location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
         event_title = event.find('span').text.strip()
         event_url = f"{home_url}{event.find('a').get('href')}"
+        event_image_url = scrape_event_page_image_san_gabriel(scrape_event_page(event_url))
         event_info = {
             'title': event_title,
             'date': event_date,
@@ -38,7 +58,7 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) 
             'location': location,
             'city': city,
             'url': event_url,
-            'image_url': scrape_event_image(event_url)
+            'image_url': f'{home_url}{event_image_url}' if event_image_url else ''
         }
         events.append(event_info)
 
@@ -71,15 +91,16 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
         location = event.find(class_='tribe-events-calendar-list__event-venue-address').text.strip() if event.find(class_='tribe-events-calendar-list__event-venue-address') else ''
         clean_location = location.replace(', CA, United States', '').strip()
         event_title = event.find('h3')
-
+        event_page_url = event_title.find('a').get('href')
+        event_image = scrape_event_page_image_pasadena(scrape_event_page(event_page_url))
         event_info = {
             'title': event_title.text.strip(),
             'date': event_date,
             'description': event.find('p').text.strip(),
             'location': clean_location,
             'city': 'Pasadena',
-            'url': event_title.find('a').get('href'),
-            'image_url': ''
+            'url': event_page_url,
+            'image_url': event_image
         }
         events.append(event_info)
 
