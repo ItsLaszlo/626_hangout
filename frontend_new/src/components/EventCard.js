@@ -29,8 +29,11 @@ export function EventCard({ event }) {
             <Typography variant="h5" component="div">
               {event.title}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {event.date}
+            <Typography
+              sx={{ mb: 1.5, fontWeight: 'bold' }}
+              color="text.secondary"
+            >
+              {event.date.formatted}
             </Typography>
             <Typography variant="body2">{event.description}</Typography>
             <Typography variant="body2" color="text.secondary">

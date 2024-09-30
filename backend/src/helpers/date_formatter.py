@@ -3,10 +3,31 @@ import re
 import unicodedata
 
 
-def datetime_serializer(datetime_obj):
-    if isinstance(datetime_obj, datetime):
-        return datetime_obj.isoformat()
-    raise TypeError(f"Type {type(datetime_obj)} not serializable")
+def format_date_output(start: datetime, end: datetime):
+    return {
+        'start': {
+            'full': start.strftime("%Y-%m-%d %I:%M %p"),
+            'date': start.strftime("%Y-%m-%d"),
+            'time': start.strftime("%I:%M %p"),
+            'day': start.strftime("%d"),
+            'month': start.strftime("%m"),
+            'year': start.strftime("%Y"),
+            'weekday': start.strftime("%A"),
+            'timestamp': int(start.timestamp())
+        },
+        'end': {
+            'full': end.strftime("%Y-%m-%d %I:%M %p"),
+            'date': end.strftime("%Y-%m-%d"),
+            'time': end.strftime("%I:%M %p"),
+            'day': end.strftime("%d"),
+            'month': end.strftime("%m"),
+            'year': end.strftime("%Y"),
+            'weekday': end.strftime("%A"),
+            'timestamp': int(end.timestamp())
+        },
+        'duration': int((end - start).total_seconds()),
+        'formatted': f"{start.strftime('%m-%d-%Y %I:%M %p')} - {end.strftime('%I:%M %p')}"
+    }
 
 
 def date_formatter(date_str: str) -> tuple:  # ToDO: look for a dateformatter func/library
@@ -56,9 +77,9 @@ def date_formatter(date_str: str) -> tuple:  # ToDO: look for a dateformatter fu
                 end_date_time = event_date.replace(hour=23, minute=59)
             else:
                 continue
-            return start_date_time, end_date_time
+            return format_date_output(start_date_time, end_date_time)
 
-    return ()
+    return {}
 
 #ToDo: make it more readable right now: 2024-09-11T06:30:002024-09-11T08:30:00 
 
