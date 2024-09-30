@@ -21,6 +21,23 @@ def scrape_event_page_image_san_gabriel(event_page_html: 'BeautifulSoup') -> str
         image_url = ''
     return image_url
     
+def scrape_event_page_image_alhambra(event_page_html: 'BeautifulSoup') -> str:
+    image_div = event_page_html.find('div', attrs={'itemprop': 'description'})
+    alternate_image_div = event_page_html.find('div',  class_='specificDetailImage')
+    image_element = None
+    
+    if image_div:
+        image_element = image_div.find('img')
+    
+    if not image_element and alternate_image_div:
+        image_element = alternate_image_div.find('img')
+    
+    image_url = image_element['src'] if image_element and 'src' in image_element.attrs else ''
+
+    print('\nURL', image_url,'---\n')
+
+    return image_url
+    
 def scrape_event_page_image_pasadena(event_page_html: 'BeautifulSoup') -> str:
     image_div = event_page_html.find('div', class_='tribe-events-event-image')
 # If the div is found, look for the img tag inside it
@@ -30,10 +47,9 @@ def scrape_event_page_image_pasadena(event_page_html: 'BeautifulSoup') -> str:
         image_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else ''
     else:
         image_url = ''
-    print('pasadena iamge url', image_url)
     return image_url
     
-def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) -> list:
+def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url,image_scraper=scrape_event_page_image_san_gabriel) -> list:
     """Extract and clean up event information from BeautifulSoup object for Temple City, San Gabriel, and Alhambra"""
 
     event_div = parsed_html.find('div', id=re.compile(r"^CID\d+"), class_="calendar")
@@ -50,7 +66,7 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url) 
         location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
         event_title = event.find('span').text.strip()
         event_url = f"{home_url}{event.find('a').get('href')}"
-        event_image_url = scrape_event_page_image_san_gabriel(scrape_event_page(event_url))
+        event_image_url = image_scraper(scrape_event_page(event_url))
         event_info = {
             'title': event_title,
             'date': event_date,
@@ -70,7 +86,7 @@ def scrape_events_temple(parsed_html: 'BeautifulSoup', home_url: str) -> list:
 
 
 def scrape_events_alhambra(parsed_html: 'BeautifulSoup', home_url: str) -> list:
-    return scrape_events_san_gabriel(parsed_html, 'Alhambra', home_url)
+    return scrape_events_san_gabriel(parsed_html, 'Alhambra', home_url,scrape_event_page_image_alhambra)
 
 
 def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:

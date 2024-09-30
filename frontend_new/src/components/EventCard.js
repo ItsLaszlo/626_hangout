@@ -4,7 +4,7 @@ import Link from 'next/link';
 export function EventCard({ event }) {
   const eventImageUrl = event.image_url
     ? event.image_url
-    : '/images/mm_logo.jpg'; // Use default image if event image is not available
+    : `/images/${event.city}.jpg`; // Use default image if event image is not available
   return (
     <Link href={event.url} passHref legacyBehavior>
       <a

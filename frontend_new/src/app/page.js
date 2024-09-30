@@ -12,7 +12,7 @@ export default async function EventsPage() {
 
   return (
     <Layout>
-      <h1>Upcoming Events</h1>
+      <h1>This month in the 626:</h1>
       {events.length > 0 ? (
         events.map((event) => <EventCard key={event.id} event={event} />)
       ) : (
