@@ -4,6 +4,7 @@ from backend.src.helpers.date_formatter import date_formatter
 from backend.config.formatted_url_config import get_city_urls_formatted
 import backend.src.helpers.web_scraper_utils as web_scraper_utils
 from backend.src.helpers.extract_json import extract_json
+import sys
 
 def scrape_event_page(event_url:str) ->'BeautifulSoup':
     event_html_text = web_scraper_utils.fetch_html_content(event_url)
@@ -33,8 +34,6 @@ def scrape_event_page_image_alhambra(event_page_html: 'BeautifulSoup') -> str:
         image_element = alternate_image_div.find('img')
     
     image_url = image_element['src'] if image_element and 'src' in image_element.attrs else ''
-
-    print('\nURL', image_url,'---\n')
 
     return image_url
     
@@ -167,5 +166,16 @@ def scrape_city_events(city_name: str) -> list: # ToDo: organize events by date 
                 else:  # alhambra and temple
                     events = extraction_func(parsed_html, city_urls[city])
                 all_events.extend(events)  # ToDo:  optimize
+                
+        def safe_get_timestamp(event):
+            try:
+                return event['date']['start']['timestamp']
+            except KeyError:
+                
+                return sys.maxsize 
 
-        return all_events
+
+        sorted_events = sorted(all_events, key=safe_get_timestamp)
+
+        # return all_events
+        return sorted_events
