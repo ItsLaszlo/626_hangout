@@ -171,11 +171,10 @@ def scrape_city_events(city_name: str) -> list: # ToDo: organize events by date 
             try:
                 return event['date']['start']['timestamp']
             except KeyError:
-                
+                # Return the maximum possible timestamp to sort events with missing dates to the end
                 return sys.maxsize 
 
 
         sorted_events = sorted(all_events, key=safe_get_timestamp)
 
-        # return all_events
         return sorted_events

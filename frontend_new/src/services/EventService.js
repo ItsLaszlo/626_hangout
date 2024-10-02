@@ -1,7 +1,7 @@
 export async function fetchEvents() {
   try {
     const res = await fetch(
-      'http://127.0.0.1:5001/626_hangout/read_events?city=all',
+      'http://127.0.0.1:5001/626_hangout/read_events?city=all', // ToDO: use ENV file
       { next: { revalidate: 86400 } } // Revalidate once per day
     );
     if (!res.ok) {
