@@ -11,6 +11,9 @@ export default function NavBar() {
         <Button color="inherit" component={Link} href="/">
           Home
         </Button>
+        <Button color="inherit" component={Link} href="/about">
+          About
+        </Button>
         {/* Add more navigation items here in the future */}
       </Toolbar>
     </AppBar>
