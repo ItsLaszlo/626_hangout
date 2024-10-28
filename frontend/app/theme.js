@@ -19,4 +19,4 @@ const theme = createTheme({
 
 export default theme;
 
-// define visual appearance
+// define visual appearance. consistent font, color scheme, and spacing

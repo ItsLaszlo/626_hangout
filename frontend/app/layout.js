@@ -19,3 +19,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+
+// ./ Root layout component that wraps every page in the app.
+// Provides consistent structure and global configurations

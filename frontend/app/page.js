@@ -74,3 +74,5 @@ export default function HomePage() {
     </>
   );
 }
+
+// Main content
