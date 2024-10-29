@@ -1,6 +1,7 @@
 import Layout from '../components/layout';
 import { fetchEvents } from '../services/EventService';
-import { EventCard } from '../components/EventCard';
+import EventsList from '../components/EventsList';
+import SocialsComponent from '../components/SocialsComponent';
 
 export default async function EventsPage() {
   let events = [];
@@ -12,12 +13,9 @@ export default async function EventsPage() {
 
   return (
     <Layout>
+      <SocialsComponent />
       <h1>This month in the 626:</h1>
-      {events.length > 0 ? (
-        events.map((event) => <EventCard key={event.id} event={event} />)
-      ) : (
-        <p>No events found.</p>
-      )}
+      <EventsList initialEvents={events} />
     </Layout>
   );
 }
