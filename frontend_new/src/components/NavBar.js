@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import Link from 'next/link';
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import Link from "next/link";
 
 export default function NavBar() {
   return (
@@ -13,6 +13,7 @@ export default function NavBar() {
         </Button>
         <Button color="inherit" component={Link} href="/about">
           About
+          {/* TODO: add typography */}
         </Button>
         {/* Add more navigation items here in the future */}
       </Toolbar>
