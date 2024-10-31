@@ -1,21 +1,30 @@
-import Layout from '../components/layout';
-import { fetchEvents } from '../services/EventService';
-import EventsList from '../components/EventsList';
-import SocialsComponent from '../components/SocialsComponent';
+import { fetchEvents } from "../services/EventService";
+import EventsList from "../components/EventsList";
+import SocialsComponent from "../components/SocialsComponent";
+import { Typography } from "@mui/material";
 
 export default async function EventsPage() {
   let events = [];
+  // Data fetching
   try {
     events = await fetchEvents();
   } catch (error) {
-    console.error('Error in EventsPage:', error);
+    console.error("Error in EventsPage:", error);
+    return (
+      <div>
+        <Typography variant="h2">Something went wrong</Typography>
+        <Typography variant="body1">
+          Unable to load events. Please try again later.
+        </Typography>
+      </div>
+    );
   }
 
   return (
-    <Layout>
+    <>
       <SocialsComponent />
-      <h1>This month in the 626:</h1>
       <EventsList initialEvents={events} />
-    </Layout>
+    </>
   );
 }
+// Purpose: Fetch data and populate main page with the content
