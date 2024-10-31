@@ -28,23 +28,34 @@ Local event aggregator for cities in the 626 (San Gabriel Valley).
   - Location
   - Event Link
   - Description
+  - Event photo
 - [X] **Have a UI to see all events**
   - Provide a user interface to view the list of events.
+#### Frontend
+- [ ] Refactor FE 
+- [ ] Resize photos 
+- [ ] Reformat description 
+- [ ] reorginze socials bar
+  -  Move social bar next to event cards
+- [ ] Add back carousel 
 
 ### MVP+
-- [ ] **Organize events by dates**
+- [X] **Organize events by dates**
   - Sort and group events by date.
 
 - [ ] **Pull up all events based on a date range**
   - Allow users to filter events by a specific date range.
 
-- [ ] **See dates based on selected cities**
+- [X] **Filter by city**
   - Filter events based on selected cities and display relevant dates.
 - [ ] Implement AWS SDK
     - [ ] Set up RDS
     - [ ] Set up API Gateway
     - [ ] Move function into Lambda
-
+### Frontend
+- [ ] Fix color scheme of text
+- [ ] redesign Banner
+- [ ] Finalize banner
 
 ### Built With
 
@@ -55,16 +66,17 @@ This section should list any major frameworks that you built your project using.
 
 <!-- GETTING STARTED -->
 ## Getting Started
+### Backend
   Navigate to backend directory
   Create a virtual environment and activate it
   ```python
-  python -m venv myenv
+  python3 -m venv myenv
   source myenv/bin/activate
   ```
   
   Install requirements:
   ```python
-  pip install -r requirements.txt
+  pip3 install -r requirements.txt
   ```
   
   Run flask app
@@ -89,5 +101,7 @@ curl -X POST http://localhost:5001/626_hangout/scrape_events \
      -H "Content-Type: application/json" \
      -d '{"city": "all"}'
 ```
-
-
+### Frontend
+```bash
+npm run dev
+```
