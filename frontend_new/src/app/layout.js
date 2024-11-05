@@ -26,7 +26,11 @@ export const metadata = {
   title: "626 Hangout",
   description:
     "Discover and connect with events, places, and people in the 626, San Gabriel Valley area.",
-  viewport: "width=device-width, initial-scale=1", // Page renders at proper device width
+};
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }) {
