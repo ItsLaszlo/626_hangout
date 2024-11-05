@@ -14,7 +14,7 @@ export default async function EventsPage() {
       <div>
         <Typography variant="h2">Something went wrong</Typography>
         <Typography variant="body1">
-          Unable to load events. Please try again later.
+          Whoops, unable to load events. Please try again later.
         </Typography>
       </div>
     );
