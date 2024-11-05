@@ -1,19 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useState } from "react";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const cities = ['All', 'Alhambra', 'Pasadena', 'Temple', 'San Gabriel'];
+const cities = ["All", "Alhambra", "Pasadena", "Temple", "San Gabriel"]; // Available cities
 
 export default function CityFilter({ onFilterChange }) {
-  const [selectedCity, setSelectedCity] = useState('All');
-  const theme = useTheme();
+  const [selectedCity, setSelectedCity] = useState("All"); // local state
 
   const handleChange = (e) => {
+    // handle selecting city
     const city = e.target.value;
-    setSelectedCity(city);
-    onFilterChange(city);
+    setSelectedCity(city); // set city in filter
+    onFilterChange(city); // filter events by city specified
   };
 
   return (
@@ -26,23 +25,25 @@ export default function CityFilter({ onFilterChange }) {
         label="Filter by city"
         onChange={handleChange}
         sx={{
-          '& .MuiSelect-select': {
-            color: theme.palette.text.secondary,
+          "& .MuiSelect-select": {
+            color: "text.secondary",
           },
         }}
         MenuProps={{
           PaperProps: {
-            sx: {
-              '& .MuiMenuItem-root': {
-                color: theme.palette.text.secondary,
+            sx: (theme) => ({
+              "& .MuiMenuItem-root": {
+                color: "text.secondary",
               },
-              '& .MuiMenuItem-root.Mui-selected': {
-                backgroundColor: `${theme.palette.text.secondary}20`,
+              "& .MuiMenuItem-root.Mui-selected": {
+                bgcolor: "text.secondary",
+                opacity: 0.2,
               },
-              '& .MuiMenuItem-root:hover': {
-                backgroundColor: `${theme.palette.text.secondary}10`,
+              "& .MuiMenuItem-root:hover": {
+                backgroundColor: "text.secondary",
+                opacity: 0.1,
               },
-            },
+            }),
           },
         }}
       >
@@ -55,3 +56,4 @@ export default function CityFilter({ onFilterChange }) {
     </FormControl>
   );
 }
+// Purpose: Renders a dropdown of cities to filter events by. Envokes city selection back to parent/EventsList.js

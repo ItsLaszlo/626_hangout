@@ -1,14 +1,24 @@
-import React from 'react';
-import { Button, Box } from '@mui/material';
-import RedditIcon from '@mui/icons-material/Reddit';
-import XIcon from '@mui/icons-material/X';
+// "use client";
+
+import React from "react";
+import { Button } from "@mui/material";
+import RedditIcon from "@mui/icons-material/Reddit";
+import XIcon from "@mui/icons-material/X";
+
+const PLATFORM_CONFIG = {
+  twitter: {
+    icon: <XIcon />,
+    baseUrl: "https://twitter.com",
+  },
+  reddit: {
+    icon: <RedditIcon />,
+    baseUrl: "https://reddit.com",
+  },
+};
 
 export default function SocialLink({ platform, username }) {
-  const icon = platform === 'twitter' ? <XIcon /> : <RedditIcon />;
-  const url =
-    platform === 'twitter'
-      ? `https://twitter.com/${username}`
-      : `https://reddit.com/${username}`;
+  const { icon, baseUrl } = PLATFORM_CONFIG[platform];
+  const url = `${baseUrl}/${username}`;
 
   return (
     <Button
@@ -18,18 +28,19 @@ export default function SocialLink({ platform, username }) {
       target="_blank"
       rel="noopener noreferrer"
       sx={{
-        textTransform: 'none',
-        backgroundColor: '#D4C6A1',
-        color: '#24201F',
-        '&:hover': {
-          backgroundColor: '#C4B691',
+        textTransform: "none",
+        bgcolor: "secondary.main",
+        color: "primary.main",
+        "&:hover": {
+          backgroundColor: "secondary.dark",
         },
         mb: 1,
-        width: '100%',
-        justifyContent: 'flex-start',
+        width: "100%",
+        justifyContent: "flex-start",
       }}
     >
       {username}
     </Button>
   );
 }
+// Purpose:  Button component that links to either Twitter or Reddit social media accounts

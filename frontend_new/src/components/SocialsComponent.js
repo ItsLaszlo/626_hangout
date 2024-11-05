@@ -1,47 +1,48 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import SocialLink from "./SocialLink";
+import { SOCIAL_DATA } from "../data/socialData";
 
-export default function SocialsComponent({}) {
-  const officialSocials = [
-    { platform: "twitter", username: "@cityofalhambra" },
-    { platform: "twitter", username: "@SanGabrielCity" },
-    { platform: "twitter", username: "@CityofRosemead" },
-    { platform: "twitter", username: "@ConnectwithTC" },
-    { platform: "twitter", username: "@DiscoverArcadia" },
-  ];
-
-  const communitySocials = [
-    { platform: "twitter", username: "@ActiveSGV" },
-    { platform: "twitter", username: "@gallerynucleus" },
-    { platform: "reddit", username: "r/sgv" },
-    { platform: "reddit", username: "r/pasadena" },
-    { platform: "reddit", username: "r/alhambra" },
-  ];
-
+export default function SocialsComponent() {
   return (
     <Box sx={{ p: 3, borderRadius: 2 }}>
       <Typography variant="h3" gutterBottom>
         Socials
       </Typography>
-      <Stack container spacing={3}>
-        <Stack item xs={12} md={6}>
+
+      {/* Main container stack - handles row/column layout */}
+      {/* <Stack container spacing={3}> */}
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={3}
+        sx={{ width: "100%" }}
+      >
+        {/* <Stack item xs={12} md={6}> */}
+        <Stack spacing={2} sx={{ flex: 1 }}>
           <Typography variant="h6" gutterBottom>
             City Official Socials:
           </Typography>
-          {officialSocials.map((social, index) => (
-            <SocialLink key={index} {...social} />
+          {SOCIAL_DATA.official.map((social, index) => (
+            <SocialLink
+              key={`${social.platform}-${social.username}`}
+              {...social}
+            />
           ))}
         </Stack>
-        <Stack item xs={12} md={6}>
+        {/* <Stack item xs={12} md={6}> */}
+        <Stack spacing={2} sx={{ flex: 1 }}>
           <Typography variant="h6" gutterBottom>
             Community Socials:
           </Typography>
-          {communitySocials.map((social, index) => (
-            <SocialLink key={index} {...social} />
+          {SOCIAL_DATA.community.map((social, index) => (
+            <SocialLink
+              key={`${social.platform}-${social.username}`}
+              {...social}
+            />
           ))}
         </Stack>
       </Stack>
     </Box>
   );
 }
+// Purpose: Parent component/container that displays Social-related media links
