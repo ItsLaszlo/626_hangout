@@ -5,36 +5,62 @@ import { SOCIAL_DATA } from "../data/socialData";
 
 export default function SocialsComponent() {
   return (
-    <Box sx={{ p: 3, borderRadius: 2 }}>
-      <Typography variant="h3" gutterBottom>
+    <Box
+      sx={{
+        borderRadius: 2,
+        maxWidth: "100%",
+        mx: "auto",
+        p: { xs: 0, md: 0 }, // Remove padding to align with main title
+      }}
+    >
+      <Typography
+        variant="h3" // Match the main title's
+        sx={{
+          fontSize: "2rem", // Smaller size since it's a sidebar
+          mb: 2, // Add margin bottom for spacing
+          fontWeight: "bold",
+        }}
+      >
         Socials
       </Typography>
 
-      {/* Main container stack - handles row/column layout */}
-      {/* <Stack container spacing={3}> */}
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={3}
-        sx={{ width: "100%" }}
+        spacing={2} // Reduced spacing
+        sx={{
+          width: "100%",
+        }}
       >
-        {/* <Stack item xs={12} md={6}> */}
-        <Stack spacing={2} sx={{ flex: 1 }}>
-          <Typography variant="h6" gutterBottom>
+        <Stack spacing={2}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "1.1rem", // Smaller size for subsections
+              fontWeight: "medium",
+            }}
+            gutterBottom
+          >
             City Official Socials:
           </Typography>
-          {SOCIAL_DATA.official.map((social, index) => (
+          {SOCIAL_DATA.official.map((social) => (
             <SocialLink
               key={`${social.platform}-${social.username}`}
               {...social}
             />
           ))}
         </Stack>
-        {/* <Stack item xs={12} md={6}> */}
-        <Stack spacing={2} sx={{ flex: 1 }}>
-          <Typography variant="h6" gutterBottom>
+
+        <Stack spacing={2}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "1.1rem",
+              fontWeight: "medium",
+            }}
+            gutterBottom
+          >
             Community Socials:
           </Typography>
-          {SOCIAL_DATA.community.map((social, index) => (
+          {SOCIAL_DATA.community.map((social) => (
             <SocialLink
               key={`${social.platform}-${social.username}`}
               {...social}
