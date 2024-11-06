@@ -2,6 +2,8 @@ import { fetchEvents } from "../services/EventService";
 import EventsList from "../components/EventsList";
 import SocialsComponent from "../components/SocialsComponent";
 import { Typography } from "@mui/material";
+import AdColumn from "../components/AdColumn";
+import ResponsiveLayout from "@/components/ResponsiveLayout";
 
 export default async function EventsPage() {
   let events = [];
@@ -21,10 +23,12 @@ export default async function EventsPage() {
   }
 
   return (
-    <>
-      <SocialsComponent />
+    <ResponsiveLayout
+      adColumn={<AdColumn />}
+      socialsComponent={<SocialsComponent />}
+    >
       <EventsList initialEvents={events} />
-    </>
+    </ResponsiveLayout>
   );
 }
 // Purpose: Fetch data and populate main page with the content
