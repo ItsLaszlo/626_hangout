@@ -6,21 +6,32 @@ import AdBanner from "./AdBanner";
 
 const AdColumn = () => {
   const [scrollOffset, setScrollOffset] = useState(0);
+  const [marginHeight, setMarginHeight] = useState(72); // Track margin height
+  const titleHeight = 72;
+  // track scroll offset | initial value is 0
 
   useEffect(() => {
     const handleScroll = () => {
-      // Get scroll position
       const scrollPosition = window.scrollY;
+      // Get scroll position of window
+      if (scrollPosition >= titleHeight) {
+        setMarginHeight(0);
 
-      // Start moving ads up after scrolling past 72px (title height)
-      // but limit the movement to not go higher than -72px
-      if (scrollPosition > 72) {
-        const newOffset = Math.min(scrollPosition - 72, 72);
-        setScrollOffset(newOffset);
+        setScrollOffset(titleHeight);
       } else {
-        setScrollOffset(0);
+        setMarginHeight(titleHeight - scrollPosition);
+
+        setScrollOffset(scrollPosition);
       }
     };
+    // if (scrollPosition > 72) {
+    //   // Start moving ads up after scrolling past 72px (title height)
+    //   // but limit the movement to not go higher than -72px
+    //   const newOffset = Math.min(scrollPosition - 72, 72);
+    //   setScrollOffset(newOffset);
+    // } else {
+    //   setScrollOffset(0);
+    // }
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,7 +43,7 @@ const AdColumn = () => {
         width: "300px",
         display: { xs: "none", lg: "block" },
         position: "relative",
-        mt: "72px",
+        mt: `${marginHeight}px`,
       }}
     >
       {/* Fixed position container for all three ads */}

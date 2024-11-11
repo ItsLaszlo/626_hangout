@@ -4,6 +4,8 @@ import { Box } from "@mui/material";
 const AdBanner = ({ index = 1 }) => {
   return (
     <Box
+      role="complementary"
+      aria-label={`Advertisement ${index}`}
       sx={{
         width: "300px",
         height: "250px",
@@ -14,9 +16,11 @@ const AdBanner = ({ index = 1 }) => {
         color: "text.secondary",
       }}
     >
-      Ad Space {index} (300x600)
+      Your Ad Here! {index}/3 <br />
+      (300x250)
     </Box>
   );
 };
 
 export default AdBanner;
+// Purpose:  Ad space
