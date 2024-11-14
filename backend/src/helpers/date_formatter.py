@@ -4,6 +4,14 @@ import unicodedata
 
 
 def format_date_output(start: datetime, end: datetime):
+
+    same_day = start.date() == end.date()
+    if same_day: 
+        formatted = f"{start.strftime('%a, %b %d • %I:%M %p')}"
+        if start != end:
+            formatted += f" - {end.strftime('%I:%M %p')}"
+    else:
+        formatted = f"{start.strftime('%a, %b %d • %I:%M %p')}"
     return {
         'start': {
             'full': start.strftime("%Y-%m-%d %I:%M %p"),
@@ -26,7 +34,7 @@ def format_date_output(start: datetime, end: datetime):
             'timestamp': int(end.timestamp())
         },
         'duration': int((end - start).total_seconds()),
-        'formatted': f"{start.strftime('%m-%d-%Y %I:%M %p')} - {end.strftime('%I:%M %p')}"
+        'formatted': formatted
     }
 
 

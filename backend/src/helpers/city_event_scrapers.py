@@ -62,15 +62,24 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url,i
         # clean date
         date_string = event.find(class_='date').text.strip()
         event_date = date_formatter(date_string)
-        location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
         event_title = event.find('span').text.strip()
         event_url = f"{home_url}{event.find('a').get('href')}"
-        event_image_url = image_scraper(scrape_event_page(event_url))
+        print('EVentURL',event_url)
+        # event page scraping
+        event_html_soup = scrape_event_page(event_url)
+        event_location_module = event_html_soup.find('div', {'itemprop':"location"})
+        event_location_venue = f"{event_location_module.find('div', {'itemprop': 'name'}).text.strip()}, " if event_location_module.find('div', {'itemprop': 'name'}) else ''
+        event_location_address = event_location_module.find('span',{'itemprop': 'address'}).text.strip()
+        event_description = event_html_soup.find('div', {'itemprop': 'description'}).text.strip()
+        # location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
+        event_image_url = image_scraper(event_html_soup)
+        
         event_info = {
             'title': event_title,
             'date': event_date,
-            'description':event.find('p').text.strip(),
-            'location': location,
+            'description':event_description,
+            # 'description':event.find('p').text.strip(),
+            'location': f'{event_location_venue}{event_location_address}',
             'city': city,
             'url': event_url,
             'image_url': f'{home_url}{event_image_url}' if event_image_url else ''
@@ -97,24 +106,29 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
 
     li_events = events_div.find_all(class_='tribe-events-calendar-list__event-details')
     events = []
-
     for event in li_events:
         # clean date
         date_string = event.find(class_='tribe-event-date-start').text.strip()
-        event_date = date_formatter(date_string)
-
-        location = event.find(class_='tribe-events-calendar-list__event-venue-address').text.strip() if event.find(class_='tribe-events-calendar-list__event-venue-address') else ''
-        clean_location = location.replace(', CA, United States', '').strip()
+        event_date = date_formatter(date_string) # Todo: date formatting does not need to be this complicated
         event_title = event.find('h3')
-        event_page_url = event_title.find('a').get('href')
-        event_image = scrape_event_page_image_pasadena(scrape_event_page(event_page_url))
+        event_url = event_title.find('a').get('href')
+
+        # event page scraping
+        event_html_soup = scrape_event_page(event_url)
+        event_venue_name = event_html_soup.find('dd', class_='tribe-venue').text.strip() if event_html_soup.find('dd', class_='tribe-venue') else ''
+        event_venue_address = event_html_soup.find('address',class_='tribe-events-address').text.strip() if event_html_soup.find('address',class_='tribe-events-address') else ''
+        event_location = f'{event_venue_name}\n {event_venue_address}' 
+        event_description = event_html_soup.find(class_='tribe-events-single-event-description tribe-events-content').text.strip()
+        clean_location = re.sub(r',\s*CA.*$', '', event_location, flags=re.DOTALL).strip()
+        event_image = scrape_event_page_image_pasadena(event_html_soup)
+
         event_info = {
             'title': event_title.text.strip(),
             'date': event_date,
-            'description': event.find('p').text.strip(),
+            'description': event_description,
             'location': clean_location,
             'city': 'Pasadena',
-            'url': event_page_url,
+            'url': event_url,
             'image_url': event_image
         }
         events.append(event_info)
