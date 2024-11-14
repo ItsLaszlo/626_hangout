@@ -13,4 +13,12 @@ export const SOCIAL_DATA = {
     { platform: "reddit", username: "r/pasadena" },
     { platform: "reddit", username: "r/alhambra" },
   ],
+  personal: [
+    {
+      platform: "email",
+      username: "626hangout@gmail.com",
+      subject: "Question about 626 Events", // optional
+      body: "Hi, I have a question about...", // optional
+    },
+  ],
 };

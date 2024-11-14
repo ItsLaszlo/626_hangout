@@ -67,6 +67,24 @@ export default function SocialsComponent() {
             />
           ))}
         </Stack>
+        <Stack spacing={2}>
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "1.1rem", // Smaller size for subsections
+              fontWeight: "medium",
+            }}
+            gutterBottom
+          >
+            Contact us:
+          </Typography>
+          {SOCIAL_DATA.personal.map((social) => (
+            <SocialLink
+              key={`${social.platform}-${social.username}`}
+              {...social}
+            />
+          ))}
+        </Stack>
       </Stack>
     </Box>
   );
