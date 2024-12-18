@@ -60,32 +60,54 @@ def scrape_events_san_gabriel(parsed_html: 'BeautifulSoup', city:str, home_url,i
     events = []
     for event in li_events:
         # clean date
-        date_string = event.find(class_='date').text.strip()
-        event_date = date_formatter(date_string)
+        # date_string = event.find(class_='date').text.strip()
+        # event_date = date_formatter(date_string)
         event_title = event.find('span').text.strip()
         event_url = f"{home_url}{event.find('a').get('href')}"
-        print('EVentURL',event_url)
+
         # event page scraping
         event_html_soup = scrape_event_page(event_url)
-        event_location_module = event_html_soup.find('div', {'itemprop':"location"})
-        event_location_venue = f"{event_location_module.find('div', {'itemprop': 'name'}).text.strip()}, " if event_location_module.find('div', {'itemprop': 'name'}) else ''
-        event_location_address = event_location_module.find('span',{'itemprop': 'address'}).text.strip()
-        event_description = event_html_soup.find('div', {'itemprop': 'description'}).text.strip()
-        # location = event.find(class_='eventLocation').text.strip().replace('@ ', '') if event.find(class_='eventLocation') else ''
         event_image_url = image_scraper(event_html_soup)
+        event_description = event_html_soup.find('div', {'itemprop': 'description'})
+        event_details_element = event_html_soup.find('div', class_='detailSpecifics')
         
+        # Get venue and address
+        event_venue_name_element = event_details_element.find('div', attrs={"itemprop": "name"})
+        
+        # if event_venue_name_element:
+        #     parent_style = event_venue_name_element.find_parent('div', class_='specificDetail').get('style', '')
+        #     event_venue_name = f"{event_venue_name_element.text.strip()}, " if 'display:none' not in parent_style else ''
+        # else:
+        #     event_venue_name = ''
+
+        event_venue_address = event_details_element.find('div', attrs={"itemprop": "address"})
+        
+        # Get date
+        date_element = event_details_element.find('div',id="ctl00_ctl00_MainContent_ModuleContent_ctl00_ctl04_dateDiv")
+        event_date = date_element.text.strip() if date_element else ''
+        
+        # Get time
+        time_element = event_details_element.find('div', id="ctl00_ctl00_MainContent_ModuleContent_ctl00_ctl04_time")
+        if time_element:
+            event_time_text = time_element.find('div', class_='specificDetailItem').text.strip()
+
+        print('DATE:', event_date)
+        print('TIME TEXT:', event_time_text)
+        print('LOCATION:', event_venue_name_element, event_venue_address)
+        print('DESCRIPTION:',event_description.text.strip())
+
         event_info = {
             'title': event_title,
             'date': event_date,
-            'description':event_description,
-            # 'description':event.find('p').text.strip(),
-            'location': f'{event_location_venue}{event_location_address}',
+            'time': event_time_text,
+            'description':event_description.text.strip(),
+            'location': f'{event_venue_name_element}{event_venue_address.text.strip()}',
             'city': city,
             'url': event_url,
             'image_url': f'{home_url}{event_image_url}' if event_image_url else ''
         }
         events.append(event_info)
-
+    print('EVENT INFO',event_info)
     return events
 
 
@@ -106,30 +128,49 @@ def scrape_events_pasadena(parsed_html: 'BeautifulSoup') -> list:
 
     li_events = events_div.find_all(class_='tribe-events-calendar-list__event-details')
     events = []
+
     for event in li_events:
         # clean date
-        date_string = event.find(class_='tribe-event-date-start').text.strip()
-        event_date = date_formatter(date_string) # Todo: date formatting does not need to be this complicated
+        # date_string = event.find(class_='tribe-event-date-start').text.strip()
+        # event_date = date_formatter(date_string) # Todo: date formatting does not need to be this complicated
         event_title = event.find('h3')
         event_url = event_title.find('a').get('href')
 
         # event page scraping
         event_html_soup = scrape_event_page(event_url)
-        event_venue_name = event_html_soup.find('dd', class_='tribe-venue').text.strip() if event_html_soup.find('dd', class_='tribe-venue') else ''
-        event_venue_address = event_html_soup.find('address',class_='tribe-events-address').text.strip() if event_html_soup.find('address',class_='tribe-events-address') else ''
-        event_location = f'{event_venue_name}\n {event_venue_address}' 
-        event_description = event_html_soup.find(class_='tribe-events-single-event-description tribe-events-content').text.strip()
+        event_image_url = scrape_event_page_image_pasadena(event_html_soup)
+        event_description = event_html_soup.find(class_='tribe-events-single-event-description tribe-events-content')
+
+        # Get venue and address 
+        venue_element = event_html_soup.find('dd', class_='tribe-venue')
+        event_venue_name = venue_element.text.strip() if venue_element else ''
+
+        # fix this use venue element?
+        address_element = event_html_soup.find('address', class_='tribe-events-address')
+        event_venue_address = address_element.text.strip() if address_element else ''
+
+        # Combine venue and address
+        event_location = f'{event_venue_name}\n {event_venue_address}' if event_venue_name or event_venue_address else ''
         clean_location = re.sub(r',\s*CA.*$', '', event_location, flags=re.DOTALL).strip()
-        event_image = scrape_event_page_image_pasadena(event_html_soup)
+       
+        # Get date
+        event_details_element = event_html_soup.find('div',class_='tribe-events-meta-group tribe-events-meta-group-details')
+        date_element = event_details_element.find('abbr', class_='tribe-events-abbr tribe-events-start-date published dtstart')
+        event_date = date_element.text.strip() if date_element else ''
+        
+        # Get time
+        time_element = event_details_element.find('div', class_='tribe-events-start-time')
+        event_time = time_element.text.strip() if time_element else ''
 
         event_info = {
             'title': event_title.text.strip(),
             'date': event_date,
-            'description': event_description,
+            'time': event_time,
+            'description': event_description.text.strip(),
             'location': clean_location,
             'city': 'Pasadena',
             'url': event_url,
-            'image_url': event_image
+            'image_url': event_image_url
         }
         events.append(event_info)
 
