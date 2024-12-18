@@ -110,15 +110,34 @@ export function EventCard({ event }) {
             </Typography>
 
             {/* Description - Only show on desktop */}
-            {!isMobile && (
-              <Typography
-                variant="body2"
+            {!isMobile && event.description && (
+              <Box
                 sx={{
-                  color: "text.secondary",
+                  maxHeight: "5em", // approximately 4 lines of text
+                  overflowY: "auto",
+                  pr: 1, // padding for scrollbar
+                  "&::-webkit-scrollbar": {
+                    width: "8px", // Slightly wider for better visibility
+                    background: "rgba(0,0,0,0.08)", // Light background for track
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,0.2)",
+                    borderRadius: "4px",
+                    "&:hover": {
+                      backgroundColor: "rgba(0,0,0,0.3)", // Darker on hover
+                    },
+                  },
                 }}
               >
-                {event.description}
-              </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "text.secondary",
+                  }}
+                >
+                  {event.description}
+                </Typography>
+              </Box>
             )}
           </CardContent>
 
@@ -306,7 +325,10 @@ export function EventCard({ event }) {
                   mb: 2,
                 }}
               >
-                {event.date?.formatted} • {event.city}
+                {event.date?.formatted} <br />
+                •••
+                <br />
+                Location: {event.location}
               </Typography>
 
               <Typography

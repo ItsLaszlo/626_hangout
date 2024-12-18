@@ -9,7 +9,7 @@ export async function fetchEvents() {
     const res = await fetch(
       //make network request
       `${baseUrl}read_events?city=all`,
-      { next: { revalidate: 60 } } // Revalidate once per day
+      { next: { revalidate: 10 } } // Revalidate once per day
     );
     if (!res.ok) {
       // If request fails HTTP status codes 4xx and 5xx
