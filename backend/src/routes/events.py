@@ -31,7 +31,6 @@ def scrape_events() -> tuple:
         return jsonify({"error": "No JSON data provided in request body"}), 400
     city_data = data.get('city')  # retrieve query parameter
     city_urls = extract_json()  # open city_urls.json in read mode
-
     if city_data in city_urls:
         city_events_file_present, file_path = check_city_events_file_exists(city_data)
         # check if city_query_param has been scraped today

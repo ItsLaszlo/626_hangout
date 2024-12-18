@@ -14,3 +14,5 @@ def extract_json(json_path='backend/config/city_urls.json') -> dict:
     except json.JSONDecodeError:
         logging.error(f'Error decoding JSON from {json_path}')
         return {}
+
+# ToDo: make this absolute instead of relative
